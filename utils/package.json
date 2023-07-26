@@ -1,0 +1,14 @@
+{
+  "name": "utils",
+  "version": "1.0.0",
+  "description": "Generator utils for \"My Personal Apartment Mod\"",
+  "main": "",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Markus Bordihn (Markus@Bordihn.de)",
+  "license": "MIT",
+  "scripts": {
+    "generator:base_grid": "node base_grid_generator.js"
+  }
+}

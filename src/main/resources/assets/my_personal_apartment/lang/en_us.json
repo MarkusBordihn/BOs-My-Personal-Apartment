@@ -1,0 +1,5 @@
+{
+  "text.my_personal_apartment.reception": "Reception",
+  "entity.my_personal_apartment.reception": "Reception",
+  "message.my_personal_apartment.no_apartment": "It looks like you don't have an apartment yet.\nTalk to reception to get a new apartment to get started!"
+}

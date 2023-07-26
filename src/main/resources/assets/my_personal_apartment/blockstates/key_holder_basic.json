@@ -1,0 +1,19 @@
+{
+  "variants": {
+    "facing=north": {
+      "model": "my_personal_apartment:block/key_holder/template"
+    },
+    "facing=south": {
+      "model": "my_personal_apartment:block/key_holder/template",
+      "y": 180
+    },
+    "facing=east": {
+      "model": "my_personal_apartment:block/key_holder/template",
+      "y": 90
+    },
+    "facing=west": {
+      "model": "my_personal_apartment:block/key_holder/template",
+      "y": 270
+    }
+  }
+}
