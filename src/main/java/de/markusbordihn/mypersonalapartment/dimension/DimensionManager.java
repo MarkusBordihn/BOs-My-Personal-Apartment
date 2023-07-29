@@ -38,7 +38,6 @@ import net.minecraftforge.fml.common.Mod.EventBusSubscriber;
 import net.minecraftforge.server.ServerLifecycleHooks;
 
 import de.markusbordihn.mypersonalapartment.Constants;
-import de.markusbordihn.mypersonalapartment.config.CommonConfig;
 import de.markusbordihn.mypersonalapartment.datapack.DataPackHandler;
 import de.markusbordihn.mypersonalapartment.teleporter.TeleporterManager;
 
@@ -47,9 +46,6 @@ public class DimensionManager {
 
   private static final Logger log = LogManager.getLogger(Constants.LOG_NAME);
 
-  private static final CommonConfig.Config COMMON = CommonConfig.COMMON;
-
-  private static Set<ServerPlayer> gameTypeReset = ConcurrentHashMap.newKeySet();
   private static Set<String> ignoredDimension = ConcurrentHashMap.newKeySet();
 
   private static String apartmentDimensionName = "my_personal_apartment:apartments_dimension";

@@ -26,7 +26,7 @@ import net.minecraft.server.level.ServerLevel;
 
 import de.markusbordihn.mypersonalapartment.Constants;
 import de.markusbordihn.mypersonalapartment.commands.CommandManager;
-import de.markusbordihn.mypersonalapartment.data.ApartmentData;
+import de.markusbordihn.mypersonalapartment.data.ApartmentsData;
 import de.markusbordihn.mypersonalapartment.dimension.DimensionManager;
 
 public class DataPackHandler {
@@ -37,11 +37,11 @@ public class DataPackHandler {
 
   public static void prepareDataPackOnce(ServerLevel level) {
     if (level == DimensionManager.getApartmentDimension()) {
-      if (ApartmentData.get().getDimensionLoaded()) {
+      if (ApartmentsData.get().getDimensionLoaded()) {
         log.info("Skip Data Pack for Apartment dimension {} because it was already loaded!", level);
       } else {
         prepareDataPack(level);
-        ApartmentData.get().setDimensionLoaded(true);
+        ApartmentsData.get().setDimensionLoaded(true);
       }
     } else {
       log.warn("Unable to get status for level {} to confirm data pack load status!", level);
@@ -51,6 +51,7 @@ public class DataPackHandler {
   public static void prepareDataPack(ServerLevel level) {
     String dataPackFunction = Constants.MOD_ID + ":apartments_load";
     log.info("Loading data pack with {} for level {} ...", dataPackFunction, level);
+    log.info("\u2615 This may take a while for the first start ...");
     CommandManager.executeServerFunction(dataPackFunction, level);
   }
 }

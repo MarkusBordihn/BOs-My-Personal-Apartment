@@ -23,6 +23,7 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
 import net.minecraftforge.api.distmarker.Dist;
+import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.eventbus.api.IEventBus;
 import net.minecraftforge.fml.DistExecutor;
 import net.minecraftforge.fml.common.Mod;
@@ -30,8 +31,12 @@ import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
 
 import de.markusbordihn.mypersonalapartment.block.ModBlocks;
 import de.markusbordihn.mypersonalapartment.client.renderer.ClientRenderer;
+import de.markusbordihn.mypersonalapartment.client.screen.ClientScreens;
 import de.markusbordihn.mypersonalapartment.entity.npc.ModEntityType;
 import de.markusbordihn.mypersonalapartment.item.ModItems;
+import de.markusbordihn.mypersonalapartment.menu.ModMenuTypes;
+import de.markusbordihn.mypersonalapartment.network.NetworkHandler;
+import de.markusbordihn.mypersonalapartment.tabs.MyPersonalApartmentTab;
 import de.markusbordihn.mypersonalapartment.utils.StopModReposts;
 
 @Mod(Constants.MOD_ID)
@@ -41,8 +46,11 @@ public class MyPersonalApartment {
 
   public MyPersonalApartment() {
     final IEventBus modEventBus = FMLJavaModLoadingContext.get().getModEventBus();
+    final IEventBus forgeEventBus = MinecraftForge.EVENT_BUS;
 
     StopModReposts.checkStopModReposts();
+
+    modEventBus.addListener(NetworkHandler::registerNetworkHandler);
 
     log.info("{} Blocks ...", Constants.LOG_REGISTER_PREFIX);
     ModBlocks.BLOCKS.register(modEventBus);
@@ -53,12 +61,16 @@ public class MyPersonalApartment {
     log.info("{} Entity Types ...", Constants.LOG_REGISTER_PREFIX);
     ModEntityType.ENTITY_TYPES.register(modEventBus);
 
+    log.info("{} Menu Types ...", Constants.LOG_REGISTER_PREFIX);
+    ModMenuTypes.MENU_TYPES.register(modEventBus);
+
+    forgeEventBus.addListener(ServerSetup::handleServerStartingEvent);
+
     DistExecutor.unsafeRunWhenOn(Dist.CLIENT, () -> () -> {
       log.info("{} Client events ...", Constants.LOG_REGISTER_PREFIX);
-      // modEventBus.addListener(ModModelLayers::registerEntityLayerDefinitions);
       modEventBus.addListener(ClientRenderer::registerEntityRenderers);
-      // modEventBus.addListener(ClientScreens::registerScreens);
-      // EasyNPCTab.CREATIVE_TABS.register(modEventBus);
+      modEventBus.addListener(ClientScreens::registerScreens);
+      MyPersonalApartmentTab.CREATIVE_TABS.register(modEventBus);
     });
   }
 

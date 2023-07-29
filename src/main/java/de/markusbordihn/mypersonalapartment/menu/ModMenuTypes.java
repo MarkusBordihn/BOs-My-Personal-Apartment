@@ -17,30 +17,26 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
 
-package de.markusbordihn.mypersonalapartment.item;
+package de.markusbordihn.mypersonalapartment.menu;
 
-import net.minecraft.world.item.BlockItem;
-import net.minecraft.world.item.Item;
-
-import net.minecraftforge.common.ForgeSpawnEggItem;
+import net.minecraft.world.inventory.MenuType;
+import net.minecraftforge.common.extensions.IForgeMenuType;
 import net.minecraftforge.registries.DeferredRegister;
 import net.minecraftforge.registries.ForgeRegistries;
 import net.minecraftforge.registries.RegistryObject;
-
 import de.markusbordihn.mypersonalapartment.Constants;
-import de.markusbordihn.mypersonalapartment.block.ModBlocks;
-import de.markusbordihn.mypersonalapartment.entity.npc.ModEntityType;
+import de.markusbordihn.mypersonalapartment.menu.apartment.ApartmentBrokerFeeMenu;
+import de.markusbordihn.mypersonalapartment.menu.apartment.ClaimApartmentMenu;
 
-public class ModItems {
+public class ModMenuTypes {
 
-  public static final DeferredRegister<Item> ITEMS =
-      DeferredRegister.create(ForgeRegistries.ITEMS, Constants.MOD_ID);
+  public static final DeferredRegister<MenuType<?>> MENU_TYPES =
+      DeferredRegister.create(ForgeRegistries.MENU_TYPES, Constants.MOD_ID);
 
-  // Creative Apartment Items and NPCs
-  public static final RegistryObject<Item> KEY_HOLDER_BASIC = ITEMS.register("key_holder_basic",
-      () -> new BlockItem(ModBlocks.KEY_HOLDER_BASIC.get(), new Item.Properties()));
-
-  public static final RegistryObject<Item> RECEPTION_SPAWN_EGG = ITEMS.register("reception_spawn_egg",
-      () -> new ForgeSpawnEggItem(ModEntityType.RECEPTION, 0x000000, 0xffffff, new Item.Properties()));
-
+  // Apartment
+  public static final RegistryObject<MenuType<ClaimApartmentMenu>> CLAIM_APARTMENT_MENU = MENU_TYPES
+      .register("claim_apartment_menu", () -> IForgeMenuType.create(ClaimApartmentMenu::new));
+  public static final RegistryObject<MenuType<ApartmentBrokerFeeMenu>> APARTMENT_BROKER_FEE_MENU =
+      MENU_TYPES.register("apartment_broker_fee_menu",
+          () -> IForgeMenuType.create(ApartmentBrokerFeeMenu::new));
 }

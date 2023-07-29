@@ -1,5 +1,18 @@
 {
+  "block.my_personal_apartment.key_holder_basic": "Key Holder",
+
   "text.my_personal_apartment.reception": "Reception",
+  "text.my_personal_apartment.reception.pay_broker_fee": "Welcome %1$s and hope you are doing well.\nBefore you can get your apartment, you need to pay the broker fee of %2$s x %3$s.\n\nLet me know when you're ready to pay.",
+  "text.my_personal_apartment.reception.pay_broker_free_button": "✔ Pay %1$s x %2$s broker fee",
+  "text.my_personal_apartment.reception.give_me_some_time_button": "❌ Give me some time ...",
+  "text.my_personal_apartment.reception.claim_apartment": "You are able to claim up to %2$s apartments.\nDo you want to claim a apartment?",
+  "text.my_personal_apartment.reception.claim_apartment_button": "✔ Claim this apartment",
+  "text.my_personal_apartment.reception.show_next_apartment_button": "Next >",
+  "text.my_personal_apartment.reception.show_previous_apartment_button": "< Previouse ",
+
   "entity.my_personal_apartment.reception": "Reception",
-  "message.my_personal_apartment.no_apartment": "It looks like you don't have an apartment yet.\nTalk to reception to get a new apartment to get started!"
+
+  "message.my_personal_apartment.no_apartment": "It looks like you don't have an apartment yet.\nTalk to reception to get a new apartment to get started!",
+
+  "itemGroup.my_personal_apartment.apartment": "My Personal Apartment"
 }

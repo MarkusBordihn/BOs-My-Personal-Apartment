@@ -7,6 +7,7 @@
   "files.insertFinalNewline": true,
   "cSpell.words": [
     "AABB",
+    "Attackable",
     "Behaviour",
     "Bootstap",
     "Bordihn",
@@ -17,10 +18,13 @@
     "Markus",
     "markusbordihn",
     "mypersonalapartment",
+    "overworld",
+    "Pushable",
     "Reposts",
     "setblock",
     "teleporter",
     "Teleporting",
+    "Unforce",
     "Voxel",
     "worldgen"
   ],

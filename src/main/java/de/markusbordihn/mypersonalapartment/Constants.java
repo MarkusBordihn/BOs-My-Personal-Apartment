@@ -19,6 +19,8 @@
 
 package de.markusbordihn.mypersonalapartment;
 
+import net.minecraft.resources.ResourceLocation;
+
 public final class Constants {
 
   protected Constants() {}
@@ -36,10 +38,28 @@ public final class Constants {
       "https://www.curseforge.com/minecraft/mc-mods/my_personal_apartment";
 
   // Prefixes
-  public static final String TEXT_PREFIX = "text.my_personal_apartment.";
+  public static final String MINECRAFT_PREFIX = "minecraft";
   public static final String MESSAGE_PREFIX = "message.my_personal_apartment.";
-  public static final String LOG_DIMENSION_MANAGER_PREFIX = "[My Personal Apartment: Dimension Manager]";
-  public static final String LOG_TELEPORT_MANAGER_PREFIX = "[My Personal Apartment: Teleport Manager]";
+  public static final String TEXT_PREFIX = "text.my_personal_apartment.";
+  public static final String TEXT_RECEPTION_PREFIX = TEXT_PREFIX + "reception.";
+  public static final String LOG_DIMENSION_MANAGER_PREFIX =
+      "[My Personal Apartment: Dimension Manager]";
+  public static final String LOG_TELEPORT_MANAGER_PREFIX =
+      "[My Personal Apartment: Teleport Manager]";
   public static final String LOG_PLAYER_MANAGER_PREFIX = "[My Personal Apartment: Player Manager]";
+
+  // Colors
+  public static final int FONT_COLOR_BLACK = 0;
+  public static final int FONT_COLOR_DARK_GREEN = 43520;
+  public static final int FONT_COLOR_DEFAULT = 4210752;
+  public static final int FONT_COLOR_GRAY = 11184810;
+  public static final int FONT_COLOR_GREEN = 5635925;
+  public static final int FONT_COLOR_RED = 16733525;
+  public static final int FONT_COLOR_WHITE = 16777215;
+  public static final int FONT_COLOR_YELLOW = 16777045;
+
+  // Textures
+  public static final ResourceLocation TEXTURE_DEMO_BACKGROUND =
+      new ResourceLocation(MINECRAFT_PREFIX, "textures/gui/demo_background.png");
 
 }

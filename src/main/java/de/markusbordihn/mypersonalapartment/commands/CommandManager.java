@@ -66,6 +66,14 @@ public class CommandManager {
   }
 
   public static void executeServerCommand(String command, ServerLevel level) {
+    executeServerCommand(command, level, false);
+  }
+
+  public static void executeServerCommandDebug(String command, ServerLevel level) {
+    executeServerCommand(command, level, true);
+  }
+
+  public static void executeServerCommand(String command, ServerLevel level, boolean debug) {
     MinecraftServer minecraftServer = ServerLifecycleHooks.getCurrentServer();
     if (minecraftServer == null) {
       return;
@@ -73,10 +81,10 @@ public class CommandManager {
     log.debug("Execute Server Command: {}", command);
     Commands commands = minecraftServer.getCommands();
     CommandSourceStack commandSourceStack =
-        minecraftServer.createCommandSourceStack().withLevel(level).withSuppressedOutput();
+        minecraftServer.createCommandSourceStack().withLevel(level);
     CommandDispatcher<CommandSourceStack> commandDispatcher = commands.getDispatcher();
-    ParseResults<CommandSourceStack> parseResults =
-        commandDispatcher.parse(command, commandSourceStack);
+    ParseResults<CommandSourceStack> parseResults = commandDispatcher.parse(command,
+        debug ? commandSourceStack : commandSourceStack.withSuppressedOutput());
     commands.performCommand(parseResults, command);
   }
 

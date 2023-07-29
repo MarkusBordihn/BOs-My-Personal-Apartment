@@ -34,18 +34,12 @@ import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod.EventBusSubscriber;
 
 import de.markusbordihn.mypersonalapartment.Constants;
-import de.markusbordihn.mypersonalapartment.config.CommonConfig;
 import de.markusbordihn.mypersonalapartment.dimension.DimensionManager;
 
 @EventBusSubscriber
 public class TeleporterManager {
 
   private static final Logger log = LogManager.getLogger(Constants.LOG_NAME);
-
-  private static final CommonConfig.Config COMMON = CommonConfig.COMMON;
-
-  // Default spawn points for the default structures
-  private static BlockPos defaultSpawnPoint = new BlockPos(0, 30, 0);
 
   protected TeleporterManager() {}
 

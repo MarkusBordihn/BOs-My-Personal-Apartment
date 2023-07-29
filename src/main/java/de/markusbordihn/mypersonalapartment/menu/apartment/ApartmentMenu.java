@@ -17,55 +17,63 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
 
-package de.markusbordihn.mypersonalapartment.entity;
+package de.markusbordihn.mypersonalapartment.menu.apartment;
 
-import net.minecraft.world.entity.EntityType;
-import net.minecraft.world.entity.Mob;
-import net.minecraft.world.entity.ai.goal.LookAtPlayerGoal;
-import net.minecraft.world.entity.ai.goal.RandomLookAroundGoal;
-import net.minecraft.world.entity.animal.FlyingAnimal;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+
+import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.inventory.AbstractContainerMenu;
+import net.minecraft.world.inventory.MenuType;
+import net.minecraft.world.inventory.Slot;
+import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
-import net.minecraft.world.phys.Vec3;
 
+import de.markusbordihn.mypersonalapartment.Constants;
 import de.markusbordihn.mypersonalapartment.config.CommonConfig;
 
-public class ApartmentNPCEntity extends ApartmentNPCEntityData {
+public class ApartmentMenu extends AbstractContainerMenu {
+
+  protected static final Logger log = LogManager.getLogger(Constants.LOG_NAME);
 
   // Config values
   protected static final CommonConfig.Config COMMON = CommonConfig.COMMON;
 
-  public ApartmentNPCEntity(EntityType<? extends Mob> entityType, Level level) {
-    super(entityType, level);
-    this.setInvulnerable(true);
+  // Cache
+  protected final Level level;
+  protected final Player player;
+
+  public ApartmentMenu(final MenuType<?> menuType, final int windowId,
+      final Inventory playerInventory) {
+    super(menuType, windowId);
+
+    this.player = playerInventory.player;
+    this.level = player.level();
   }
 
   @Override
-  public boolean isAttackable() {
-    return false;
+  public ItemStack quickMoveStack(Player player, int slotIndex) {
+    Slot slot = this.slots.get(slotIndex);
+    if (!slot.hasItem()) {
+      return ItemStack.EMPTY;
+    }
+
+    ItemStack itemStack = slot.getItem();
+
+    // Store changes if itemStack is not empty.
+    if (itemStack.isEmpty()) {
+      slot.set(ItemStack.EMPTY);
+    } else {
+      slot.setChanged();
+    }
+
+    return ItemStack.EMPTY;
   }
 
   @Override
-  public boolean isPushable() {
-    return false;
-  }
-
-  @Override
-  public boolean removeWhenFarAway(double distance) {
-    return false;
-  }
-
-  @Override
-  protected void registerGoals() {
-    super.registerGoals();
-    this.goalSelector.addGoal(9, new LookAtPlayerGoal(this, Player.class, 15.0F, 1.0F));
-    this.goalSelector.addGoal(10, new RandomLookAroundGoal(this));
-  }
-
-  @Override
-  public void travel(Vec3 vec3) {
-    // Make sure we only calculate animations for be as much as possible server-friendly.
-    this.calculateEntityAnimation(this instanceof FlyingAnimal);
+  public boolean stillValid(Player player) {
+    return player != null && player.isAlive();
   }
 
 }

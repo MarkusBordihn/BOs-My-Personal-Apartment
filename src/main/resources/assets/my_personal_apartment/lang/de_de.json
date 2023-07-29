@@ -1,5 +1,11 @@
 {
+  "block.my_personal_apartment.key_holder_basic": "Schlüsselhalter",
+
   "text.my_personal_apartment.reception": "Empfang",
+
   "entity.my_personal_apartment.reception": "Empfang",
-  "message.my_personal_apartment.no_apartment": "Es sieht so aus, als hättest du noch keine Wohnung.\nSprich mit dem Empfang um eine neue Wohnung zu erhalten, um loszulegen!"
+
+  "message.my_personal_apartment.no_apartment": "Es sieht so aus, als hättest du noch keine Wohnung.\nSprich mit dem Empfang um eine neue Wohnung zu erhalten, um loszulegen!",
+
+  "itemGroup.my_personal_apartment.apartment": "Meine persönliche Wohnung"
 }

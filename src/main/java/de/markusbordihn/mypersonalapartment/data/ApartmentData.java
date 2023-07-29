@@ -19,108 +19,127 @@
 
 package de.markusbordihn.mypersonalapartment.data;
 
-import java.util.Date;
+import java.util.UUID;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
+import net.minecraft.core.BlockPos;
 import net.minecraft.nbt.CompoundTag;
-import net.minecraft.server.MinecraftServer;
-import net.minecraft.server.level.ServerLevel;
-import net.minecraft.world.level.saveddata.SavedData;
-
-import net.minecraftforge.event.server.ServerAboutToStartEvent;
-import net.minecraftforge.eventbus.api.SubscribeEvent;
-import net.minecraftforge.fml.common.Mod.EventBusSubscriber;
-import net.minecraftforge.server.ServerLifecycleHooks;
+import net.minecraft.nbt.NbtUtils;
+import net.minecraft.server.level.ServerPlayer;
 
 import de.markusbordihn.mypersonalapartment.Constants;
-import de.markusbordihn.mypersonalapartment.dimension.DimensionManager;
 
-@EventBusSubscriber
-public class ApartmentData extends SavedData {
+public class ApartmentData {
 
-  public static final Logger log = LogManager.getLogger(Constants.LOG_NAME);
+  protected static final Logger log = LogManager.getLogger(Constants.LOG_NAME);
 
-  private static final String FILE_ID = Constants.MOD_ID;
-  private static MinecraftServer server = null;
-  private static ApartmentData data = null;
-  private static ServerLevel level = null;
+  // Compound Tags
+  private static final String APARTMENT_UUID_TAG = "UUID";
+  private static final String OWNER_UUID_TAG = "OwnerUUID";
+  private static final String START_BLOCK_POS_TAG = "StartBlockPos";
+  private static final String END_BLOCK_POS_TAG = "EndBlockPos";
+  private static final String SPAWN_BLOCK_POS_TAG = "SpawnBlockPos";
+  private static final String APARTMENT_NAME_TAG = "ApartmentName";
 
-  private boolean dimensionLoaded = false;
-  private long lastUpdate;
+  // Data Holder
+  private UUID ownerUUID;
+  private UUID apartmentUUID = UUID.randomUUID();
+  private BlockPos startBlockPos;
+  private BlockPos endBlockPos;
+  private BlockPos spawnBlockPos;
+  private String apartmentName;
 
-  public ApartmentData() {
-    this.setDirty();
+  public ApartmentData(ServerPlayer serverPlayer, BlockPos startBlockPos, BlockPos endBlockPos) {
+    this(serverPlayer, startBlockPos, endBlockPos, startBlockPos.offset(5, 5, 5));
   }
 
-  @SubscribeEvent
-  public static void handleServerAboutToStartEvent(ServerAboutToStartEvent event) {
-    // Reset data and server for the integrated server.
-    data = null;
-    level = null;
-    server = null;
+  public ApartmentData(ServerPlayer serverPlayer, BlockPos startBlockPos, BlockPos endBlockPos,
+      BlockPos spawnBlockPos) {
+    this.ownerUUID = serverPlayer.getUUID();
+    this.startBlockPos = startBlockPos;
+    this.endBlockPos = endBlockPos;
+    this.spawnBlockPos = spawnBlockPos;
+    this.apartmentName =
+        serverPlayer.getName().getString() + "'s Apartment (" + this.apartmentUUID + ")";
   }
 
-  public static ApartmentData get() {
-    if (ApartmentData.data == null || ApartmentData.level == null) {
-      prepare(ServerLifecycleHooks.getCurrentServer());
-    }
-    return ApartmentData.data;
+  public ApartmentData(CompoundTag compoundTag) {
+    this.load(compoundTag);
   }
 
-  public static void prepare(MinecraftServer server) {
-    // Make sure we preparing the data only once for the same server!
-    if (server == ApartmentData.server && ApartmentData.data != null && ApartmentData.level != null) {
-      return;
-    }
-
-    ApartmentData.server = server;
-    ApartmentData.level = DimensionManager.getApartmentDimension();
-    if (ApartmentData.level != null) {
-      log.info("{} preparing data for {} and {}", Constants.LOG_NAME, ApartmentData.server,
-          ApartmentData.level);
-      ApartmentData.data = ApartmentData.level.getDataStorage().computeIfAbsent(ApartmentData::load, ApartmentData::new,
-          ApartmentData.getFileId());
-    } else {
-      log.error("Unable to preparing data for {} and {}", ApartmentData.server, ApartmentData.level);
-    }
+  public UUID getApartmentUUID() {
+    return this.apartmentUUID;
   }
 
-  public static String getFileId() {
-    return FILE_ID;
+  public void setApartmentUUID(UUID uuid) {
+    this.apartmentUUID = uuid;
   }
 
-  public long getLastUpdate() {
-    return lastUpdate;
+  public UUID getOwnerUUID() {
+    return this.ownerUUID;
   }
 
-  public void setLastUpdate(long lastUpdate) {
-    this.lastUpdate = lastUpdate;
+  public void setUUID(UUID uuid) {
+    this.ownerUUID = uuid;
   }
 
-  public boolean getDimensionLoaded() {
-    return this.dimensionLoaded;
+  public BlockPos getStartBlockPos() {
+    return this.startBlockPos;
   }
 
-  public void setDimensionLoaded(boolean loaded) {
-    this.dimensionLoaded = loaded;
+  public void setStartBlockPos(BlockPos blockPos) {
+    this.startBlockPos = blockPos;
   }
 
-  public static ApartmentData load(CompoundTag compoundTag) {
-    ApartmentData apartmentData = new ApartmentData();
-    log.info("{} loading void dimension data ... {}", Constants.LOG_NAME, compoundTag);
-    apartmentData.dimensionLoaded = compoundTag.getBoolean("DimensionLoaded");
-    apartmentData.lastUpdate = compoundTag.getLong("LastUpdate");
-    return apartmentData;
+  public BlockPos getEndBlockPos() {
+    return this.endBlockPos;
   }
 
-  @Override
+  public void setEndBlockPos(BlockPos blockPos) {
+    this.endBlockPos = blockPos;
+  }
+
+  public BlockPos getSpawnBlockPos() {
+    return this.spawnBlockPos;
+  }
+
+  public void setSpawnBlockPos(BlockPos blockPos) {
+    this.spawnBlockPos = blockPos;
+  }
+
+  public String getApartmentName() {
+    return this.apartmentName;
+  }
+
+  public void setApartmentName(String apartmentName) {
+    this.apartmentName = apartmentName;
+  }
+
+  public void load(CompoundTag compoundTag) {
+    log.info("Loading apartment data ...", compoundTag);
+    this.apartmentUUID =
+        compoundTag.contains(APARTMENT_UUID_TAG) ? compoundTag.getUUID(APARTMENT_UUID_TAG)
+            : UUID.randomUUID();
+    this.ownerUUID = compoundTag.getUUID(OWNER_UUID_TAG);
+    this.startBlockPos = NbtUtils.readBlockPos(compoundTag.getCompound(START_BLOCK_POS_TAG));
+    this.endBlockPos = NbtUtils.readBlockPos(compoundTag.getCompound(END_BLOCK_POS_TAG));
+    this.spawnBlockPos = NbtUtils.readBlockPos(compoundTag.getCompound(SPAWN_BLOCK_POS_TAG));
+    this.apartmentName = compoundTag.getString(APARTMENT_NAME_TAG);
+  }
+
   public CompoundTag save(CompoundTag compoundTag) {
-    log.info("{} saving void dimension data ... {}", Constants.LOG_NAME, this);
-    compoundTag.putBoolean("DimensionLoaded", this.dimensionLoaded);
-    compoundTag.putLong("LastUpdate", new Date().getTime());
+    log.info("Saving apartment data ...", compoundTag);
+    compoundTag.putUUID(APARTMENT_UUID_TAG, this.apartmentUUID);
+    compoundTag.putUUID(OWNER_UUID_TAG, this.ownerUUID);
+    compoundTag.put(START_BLOCK_POS_TAG, NbtUtils.writeBlockPos(this.startBlockPos));
+    compoundTag.put(END_BLOCK_POS_TAG, NbtUtils.writeBlockPos(this.endBlockPos));
+    compoundTag.put(SPAWN_BLOCK_POS_TAG, NbtUtils.writeBlockPos(this.spawnBlockPos));
+    compoundTag.putString(APARTMENT_NAME_TAG, this.apartmentName);
     return compoundTag;
   }
+
+
 
 }

@@ -17,30 +17,24 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
 
-package de.markusbordihn.mypersonalapartment.item;
+package de.markusbordihn.mypersonalapartment;
 
-import net.minecraft.world.item.BlockItem;
-import net.minecraft.world.item.Item;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
-import net.minecraftforge.common.ForgeSpawnEggItem;
-import net.minecraftforge.registries.DeferredRegister;
-import net.minecraftforge.registries.ForgeRegistries;
-import net.minecraftforge.registries.RegistryObject;
+import net.minecraftforge.event.server.ServerStartingEvent;
 
-import de.markusbordihn.mypersonalapartment.Constants;
-import de.markusbordihn.mypersonalapartment.block.ModBlocks;
-import de.markusbordihn.mypersonalapartment.entity.npc.ModEntityType;
+import de.markusbordihn.mypersonalapartment.data.ApartmentsData;
 
-public class ModItems {
+public class ServerSetup {
 
-  public static final DeferredRegister<Item> ITEMS =
-      DeferredRegister.create(ForgeRegistries.ITEMS, Constants.MOD_ID);
+  protected static final Logger log = LogManager.getLogger(Constants.LOG_NAME);
 
-  // Creative Apartment Items and NPCs
-  public static final RegistryObject<Item> KEY_HOLDER_BASIC = ITEMS.register("key_holder_basic",
-      () -> new BlockItem(ModBlocks.KEY_HOLDER_BASIC.get(), new Item.Properties()));
+  protected ServerSetup() {}
 
-  public static final RegistryObject<Item> RECEPTION_SPAWN_EGG = ITEMS.register("reception_spawn_egg",
-      () -> new ForgeSpawnEggItem(ModEntityType.RECEPTION, 0x000000, 0xffffff, new Item.Properties()));
+  public static void handleServerStartingEvent(ServerStartingEvent event) {
+    log.info("{} Server Starting setup ...", Constants.LOG_REGISTER_PREFIX);
+    ApartmentsData.prepare(event.getServer());
+  }
 
 }

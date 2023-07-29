@@ -17,30 +17,35 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
 
-package de.markusbordihn.mypersonalapartment.item;
+package de.markusbordihn.mypersonalapartment.tabs;
 
-import net.minecraft.world.item.BlockItem;
-import net.minecraft.world.item.Item;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
-import net.minecraftforge.common.ForgeSpawnEggItem;
+import net.minecraft.core.registries.Registries;
+import net.minecraft.network.chat.Component;
+import net.minecraft.world.item.CreativeModeTab;
+
 import net.minecraftforge.registries.DeferredRegister;
-import net.minecraftforge.registries.ForgeRegistries;
 import net.minecraftforge.registries.RegistryObject;
 
 import de.markusbordihn.mypersonalapartment.Constants;
-import de.markusbordihn.mypersonalapartment.block.ModBlocks;
-import de.markusbordihn.mypersonalapartment.entity.npc.ModEntityType;
+import de.markusbordihn.mypersonalapartment.item.ModItems;
 
-public class ModItems {
+public class MyPersonalApartmentTab {
 
-  public static final DeferredRegister<Item> ITEMS =
-      DeferredRegister.create(ForgeRegistries.ITEMS, Constants.MOD_ID);
+  protected static final Logger log = LogManager.getLogger(Constants.LOG_NAME);
 
-  // Creative Apartment Items and NPCs
-  public static final RegistryObject<Item> KEY_HOLDER_BASIC = ITEMS.register("key_holder_basic",
-      () -> new BlockItem(ModBlocks.KEY_HOLDER_BASIC.get(), new Item.Properties()));
+  protected MyPersonalApartmentTab() {}
 
-  public static final RegistryObject<Item> RECEPTION_SPAWN_EGG = ITEMS.register("reception_spawn_egg",
-      () -> new ForgeSpawnEggItem(ModEntityType.RECEPTION, 0x000000, 0xffffff, new Item.Properties()));
+  public static final DeferredRegister<CreativeModeTab> CREATIVE_TABS =
+      DeferredRegister.create(Registries.CREATIVE_MODE_TAB, Constants.MOD_ID);
+
+  public static final RegistryObject<CreativeModeTab> TAB_PERSONAL_APARTMENT =
+      CREATIVE_TABS.register("my_personal_apartment",
+          () -> CreativeModeTab.builder()
+              .icon(() -> ModItems.KEY_HOLDER_BASIC.get().getDefaultInstance())
+              .displayItems(new ApartmentItems())
+              .title(Component.translatable("itemGroup.my_personal_apartment.apartment")).build());
 
 }
