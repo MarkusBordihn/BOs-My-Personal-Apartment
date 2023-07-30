@@ -29,6 +29,7 @@ import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.MutableComponent;
+import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.entity.player.Player;
@@ -46,6 +47,7 @@ import net.minecraft.world.phys.shapes.CollisionContext;
 import net.minecraft.world.phys.shapes.VoxelShape;
 
 import de.markusbordihn.mypersonalapartment.Constants;
+import de.markusbordihn.mypersonalapartment.data.ApartmentsData;
 
 public class KeyHolderBlock extends Block {
 
@@ -76,11 +78,24 @@ public class KeyHolderBlock extends Block {
     }
 
     log.info("KeyHolderBlock.use by {}", player.getName().getString());
+    if (player instanceof ServerPlayer serverPlayer) {
+      ApartmentsData apartmentsData = ApartmentsData.get();
+      if (apartmentsData.hasApartment(serverPlayer)) {
+        MutableComponent message =
+            Component.translatable(Constants.MESSAGE_PREFIX + "apartment_key")
+                .withStyle(ChatFormatting.YELLOW);
+        player.sendSystemMessage(message);
+        return InteractionResult.CONSUME;
+      } else {
+        MutableComponent message =
+            Component.translatable(Constants.MESSAGE_PREFIX + "no_apartment")
+                .withStyle(ChatFormatting.YELLOW);
+        player.sendSystemMessage(message);
+        return InteractionResult.CONSUME;
+      }
+    }
 
-    MutableComponent message = Component.translatable(Constants.MESSAGE_PREFIX + "no_apartment").withStyle(ChatFormatting.YELLOW);
-    player.sendSystemMessage(message);
-
-    return InteractionResult.CONSUME;
+    return InteractionResult.PASS;
   }
 
   /** @deprecated */

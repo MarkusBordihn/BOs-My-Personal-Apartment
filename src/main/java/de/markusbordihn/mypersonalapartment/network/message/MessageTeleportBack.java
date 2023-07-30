@@ -17,48 +17,46 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
 
-package de.markusbordihn.mypersonalapartment.menu.apartment;
+package de.markusbordihn.mypersonalapartment.network.message;
 
-import javax.annotation.Nullable;
+import java.util.function.Supplier;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
-import net.minecraft.network.FriendlyByteBuf;
-import net.minecraft.network.chat.Component;
-import net.minecraft.world.MenuProvider;
-import net.minecraft.world.entity.player.Inventory;
-import net.minecraft.world.entity.player.Player;
-import net.minecraft.world.inventory.AbstractContainerMenu;
+import net.minecraft.server.level.ServerPlayer;
+
+import net.minecraftforge.network.NetworkEvent;
 
 import de.markusbordihn.mypersonalapartment.Constants;
-import de.markusbordihn.mypersonalapartment.menu.ModMenuTypes;
+import de.markusbordihn.mypersonalapartment.config.CommonConfig;
+import de.markusbordihn.mypersonalapartment.teleporter.TeleporterManager;
 
-public class ClaimApartmentMenu extends ApartmentMenu {
+public class MessageTeleportBack {
 
   protected static final Logger log = LogManager.getLogger(Constants.LOG_NAME);
 
-  public ClaimApartmentMenu(int windowId, Inventory playerInventory) {
-    super(ModMenuTypes.CLAIM_APARTMENT_MENU.get(), windowId, playerInventory);
+  // Config values
+  protected static final CommonConfig.Config COMMON = CommonConfig.COMMON;
+
+  public MessageTeleportBack() {}
+
+  public static void handle(MessageTeleportBack message,
+      Supplier<NetworkEvent.Context> contextSupplier) {
+    NetworkEvent.Context context = contextSupplier.get();
+    context.enqueueWork(() -> handlePacket(message, context));
+    context.setPacketHandled(true);
   }
 
-  public ClaimApartmentMenu(int windowId, Inventory playerInventory, FriendlyByteBuf data) {
-    this(windowId, playerInventory);
-  }
+  public static void handlePacket(MessageTeleportBack message, NetworkEvent.Context context) {
+    // Verify server player.
+    ServerPlayer serverPlayer = context.getSender();
+    if (serverPlayer == null) {
+      return;
+    }
 
-  public static MenuProvider getMenuProvider(Player player) {
-    return new MenuProvider() {
-      @Override
-      public Component getDisplayName() {
-        return Component.literal("Claim Apartment Dialog for " + player.getName().getString());
-      }
-
-      @Nullable
-      @Override
-      public AbstractContainerMenu createMenu(int windowId, Inventory inventory, Player player) {
-        return new ClaimApartmentMenu(windowId, inventory);
-      }
-    };
+    log.info("Teleport player back, if possible ...",
+        TeleporterManager.teleportToBackLastDimension(serverPlayer));
   }
 
 }

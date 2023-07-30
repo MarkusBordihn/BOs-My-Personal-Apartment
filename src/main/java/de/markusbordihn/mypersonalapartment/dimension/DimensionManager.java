@@ -27,7 +27,6 @@ import org.apache.logging.log4j.Logger;
 
 import net.minecraft.server.MinecraftServer;
 import net.minecraft.server.level.ServerLevel;
-import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.entity.player.Player;
 
 import net.minecraftforge.event.entity.player.PlayerEvent.PlayerChangedDimensionEvent;
@@ -39,7 +38,6 @@ import net.minecraftforge.server.ServerLifecycleHooks;
 
 import de.markusbordihn.mypersonalapartment.Constants;
 import de.markusbordihn.mypersonalapartment.datapack.DataPackHandler;
-import de.markusbordihn.mypersonalapartment.teleporter.TeleporterManager;
 
 @EventBusSubscriber
 public class DimensionManager {
@@ -115,10 +113,6 @@ public class DimensionManager {
       mapServerLevel(ServerLifecycleHooks.getCurrentServer());
     }
     return apartmentLevel;
-  }
-
-  public static void teleportToApartment(ServerPlayer player) {
-    TeleporterManager.teleportToApartmentDimension(player);
   }
 
 }

@@ -19,6 +19,9 @@
 
 package de.markusbordihn.mypersonalapartment.menu.apartment;
 
+import java.util.HashSet;
+import java.util.Set;
+
 import javax.annotation.Nullable;
 
 import org.apache.logging.log4j.LogManager;
@@ -32,31 +35,45 @@ import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.inventory.AbstractContainerMenu;
 
 import de.markusbordihn.mypersonalapartment.Constants;
+import de.markusbordihn.mypersonalapartment.data.ApartmentData;
+import de.markusbordihn.mypersonalapartment.data.ApartmentsData;
 import de.markusbordihn.mypersonalapartment.menu.ModMenuTypes;
 
-public class ClaimApartmentMenu extends ApartmentMenu {
+public class TeleportApartmentMenu extends ApartmentMenu {
 
   protected static final Logger log = LogManager.getLogger(Constants.LOG_NAME);
 
-  public ClaimApartmentMenu(int windowId, Inventory playerInventory) {
-    super(ModMenuTypes.CLAIM_APARTMENT_MENU.get(), windowId, playerInventory);
+  private Set<ApartmentData> apartments = new HashSet<>();
+
+  public TeleportApartmentMenu(int windowId, Inventory playerInventory) {
+    super(ModMenuTypes.TELEPORT_APARTMENT_MENU.get(), windowId, playerInventory);
   }
 
-  public ClaimApartmentMenu(int windowId, Inventory playerInventory, FriendlyByteBuf data) {
+  public TeleportApartmentMenu(int windowId, Inventory playerInventory, Set<ApartmentData> apartments) {
+    super(ModMenuTypes.TELEPORT_APARTMENT_MENU.get(), windowId, playerInventory);
+    this.apartments = apartments;
+  }
+
+  public TeleportApartmentMenu(int windowId, Inventory playerInventory, FriendlyByteBuf buffer) {
     this(windowId, playerInventory);
+    this.apartments = ApartmentsData.readApartmentsFromBuffer(buffer);
+  }
+
+  public Set<ApartmentData> getApartmentsData() {
+    return this.apartments;
   }
 
   public static MenuProvider getMenuProvider(Player player) {
     return new MenuProvider() {
       @Override
       public Component getDisplayName() {
-        return Component.literal("Claim Apartment Dialog for " + player.getName().getString());
+        return Component.literal("Teleport Apartment Dialog for " + player.getName().getString());
       }
 
       @Nullable
       @Override
       public AbstractContainerMenu createMenu(int windowId, Inventory inventory, Player player) {
-        return new ClaimApartmentMenu(windowId, inventory);
+        return new TeleportApartmentMenu(windowId, inventory, new HashSet<>());
       }
     };
   }

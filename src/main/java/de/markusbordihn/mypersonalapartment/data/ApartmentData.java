@@ -27,6 +27,7 @@ import org.apache.logging.log4j.Logger;
 import net.minecraft.core.BlockPos;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.nbt.NbtUtils;
+import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.server.level.ServerPlayer;
 
 import de.markusbordihn.mypersonalapartment.Constants;
@@ -42,6 +43,8 @@ public class ApartmentData {
   private static final String END_BLOCK_POS_TAG = "EndBlockPos";
   private static final String SPAWN_BLOCK_POS_TAG = "SpawnBlockPos";
   private static final String APARTMENT_NAME_TAG = "ApartmentName";
+  private static final String TIER_TAG = "Tier";
+  private static final String APARTMENT_TYPE_TAG = "ApartmentType";
 
   // Data Holder
   private UUID ownerUUID;
@@ -50,9 +53,11 @@ public class ApartmentData {
   private BlockPos endBlockPos;
   private BlockPos spawnBlockPos;
   private String apartmentName;
+  private int tier;
+  private String apartmentType;
 
   public ApartmentData(ServerPlayer serverPlayer, BlockPos startBlockPos, BlockPos endBlockPos) {
-    this(serverPlayer, startBlockPos, endBlockPos, startBlockPos.offset(5, 5, 5));
+    this(serverPlayer, startBlockPos, endBlockPos, startBlockPos.offset(4, 6, 4));
   }
 
   public ApartmentData(ServerPlayer serverPlayer, BlockPos startBlockPos, BlockPos endBlockPos,
@@ -63,6 +68,10 @@ public class ApartmentData {
     this.spawnBlockPos = spawnBlockPos;
     this.apartmentName =
         serverPlayer.getName().getString() + "'s Apartment (" + this.apartmentUUID + ")";
+  }
+
+  public ApartmentData(FriendlyByteBuf buffer) {
+    this.readFromBuffer(buffer);
   }
 
   public ApartmentData(CompoundTag compoundTag) {
@@ -117,8 +126,24 @@ public class ApartmentData {
     this.apartmentName = apartmentName;
   }
 
+  public int getTier() {
+    return this.tier;
+  }
+
+  public void setTier(int tier) {
+    this.tier = tier;
+  }
+
+  public String getApartmentType() {
+    return this.apartmentType;
+  }
+
+  public void setApartmentType(String apartmentType) {
+    this.apartmentType = apartmentType;
+  }
+
   public void load(CompoundTag compoundTag) {
-    log.info("Loading apartment data ...", compoundTag);
+    log.info("Loading apartment data from {}", compoundTag);
     this.apartmentUUID =
         compoundTag.contains(APARTMENT_UUID_TAG) ? compoundTag.getUUID(APARTMENT_UUID_TAG)
             : UUID.randomUUID();
@@ -127,19 +152,43 @@ public class ApartmentData {
     this.endBlockPos = NbtUtils.readBlockPos(compoundTag.getCompound(END_BLOCK_POS_TAG));
     this.spawnBlockPos = NbtUtils.readBlockPos(compoundTag.getCompound(SPAWN_BLOCK_POS_TAG));
     this.apartmentName = compoundTag.getString(APARTMENT_NAME_TAG);
+    this.tier = compoundTag.getInt(TIER_TAG);
+    this.apartmentType = compoundTag.getString(APARTMENT_TYPE_TAG);
   }
 
   public CompoundTag save(CompoundTag compoundTag) {
-    log.info("Saving apartment data ...", compoundTag);
+    log.info("Saving apartment data to {}", compoundTag);
     compoundTag.putUUID(APARTMENT_UUID_TAG, this.apartmentUUID);
     compoundTag.putUUID(OWNER_UUID_TAG, this.ownerUUID);
     compoundTag.put(START_BLOCK_POS_TAG, NbtUtils.writeBlockPos(this.startBlockPos));
     compoundTag.put(END_BLOCK_POS_TAG, NbtUtils.writeBlockPos(this.endBlockPos));
     compoundTag.put(SPAWN_BLOCK_POS_TAG, NbtUtils.writeBlockPos(this.spawnBlockPos));
     compoundTag.putString(APARTMENT_NAME_TAG, this.apartmentName);
+    compoundTag.putInt(TIER_TAG, this.tier);
+    compoundTag.putString(APARTMENT_TYPE_TAG, this.apartmentType);
     return compoundTag;
   }
 
+  public void writeToBuffer(FriendlyByteBuf buffer) {
+    buffer.writeUUID(this.apartmentUUID);
+    buffer.writeUUID(this.ownerUUID);
+    buffer.writeBlockPos(this.startBlockPos);
+    buffer.writeBlockPos(this.endBlockPos);
+    buffer.writeBlockPos(this.spawnBlockPos);
+    buffer.writeUtf(this.apartmentName);
+    buffer.writeInt(this.tier);
+    buffer.writeUtf(this.apartmentType);
+  }
 
+  public void readFromBuffer(FriendlyByteBuf buffer) {
+    this.apartmentUUID = buffer.readUUID();
+    this.ownerUUID = buffer.readUUID();
+    this.startBlockPos = buffer.readBlockPos();
+    this.endBlockPos = buffer.readBlockPos();
+    this.spawnBlockPos = buffer.readBlockPos();
+    this.apartmentName = buffer.readUtf();
+    this.tier = buffer.readInt();
+    this.apartmentType = buffer.readUtf();
+  }
 
 }

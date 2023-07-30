@@ -29,6 +29,7 @@ import net.minecraftforge.fml.event.lifecycle.FMLClientSetupEvent;
 import de.markusbordihn.mypersonalapartment.Constants;
 import de.markusbordihn.mypersonalapartment.client.screen.apartment.ApartmentBrokerFeeScreen;
 import de.markusbordihn.mypersonalapartment.client.screen.apartment.ClaimApartmentScreen;
+import de.markusbordihn.mypersonalapartment.client.screen.apartment.TeleportApartmentScreen;
 import de.markusbordihn.mypersonalapartment.menu.ModMenuTypes;
 
 public class ClientScreens {
@@ -41,9 +42,11 @@ public class ClientScreens {
     event.enqueueWork(() -> {
 
       // Apartment
-      MenuScreens.register(ModMenuTypes.CLAIM_APARTMENT_MENU.get(), ClaimApartmentScreen::new);
       MenuScreens.register(ModMenuTypes.APARTMENT_BROKER_FEE_MENU.get(),
           ApartmentBrokerFeeScreen::new);
+      MenuScreens.register(ModMenuTypes.CLAIM_APARTMENT_MENU.get(), ClaimApartmentScreen::new);
+      MenuScreens.register(ModMenuTypes.TELEPORT_APARTMENT_MENU.get(),
+          TeleportApartmentScreen::new);
     });
   }
 

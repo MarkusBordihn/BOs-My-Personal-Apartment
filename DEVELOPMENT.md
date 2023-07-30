@@ -61,3 +61,39 @@ In particular the following based structures are used as a rough reference.
 ### Design of the apartment
 
 The design of the apartments is not based on any vanilla structure.
+
+## Apartment: Name, Description and Apartment Image
+
+To allow flexible naming, describing and image of the apartments they are all based on the structure name with the following convention.
+
+The apartments are defined in the `my_personal_apartment-common.toml` file in the `config/` folder.
+
+### Name
+
+The name of the apartment is based on the structure name with the following convention.
+e.g. my_personal_apartment:apartment/16x16/tier1/16x16_tier1_oak_apartment
+
+Will be converted to the following translatable key:
+`text.my_personal_apartment.apartment.16x16.tier1.16x16_tier1_oak_apartment.name`
+
+This key will be used to get the name of the apartment in the language of the player over the translation file (e.g. en_us.json).
+
+### Description
+
+The description of the apartment is based on the structure name with the following convention.
+e.g. my_personal_apartment:apartment/16x16/tier1/16x16_tier1_oak_apartment
+
+Will be converted to the following translatable key:
+`text.my_personal_apartment.apartment.16x16.tier1.16x16_tier1_oak_apartment.description`
+
+This key will be used to get the name of the apartment in the language of the player over the translation file (e.g. en_us.json).
+
+### Image
+
+The image (64x64) of the apartment is based on the structure name with the following convention.
+e.g. my_personal_apartment:apartment/16x16/tier1/16x16_tier1_oak_apartment
+
+Will be converted to the following resource location:
+`my_personal_apartment:textures/apartment/16x16/tier1/16x16_tier1_oak_apartment.png`
+
+This resource location will be used to get the image of the apartment in the language of the player over the resource pack.

@@ -19,6 +19,8 @@
 
 package de.markusbordihn.mypersonalapartment.teleporter;
 
+import java.util.HashMap;
+
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
@@ -41,15 +43,23 @@ public class TeleporterManager {
 
   private static final Logger log = LogManager.getLogger(Constants.LOG_NAME);
 
+  private static HashMap<ServerPlayer, ResourceKey<Level>> teleportHistoryDimensionMap =
+      new HashMap<>();
+  private static HashMap<ServerPlayer, BlockPos> teleportHistoryPositionMap = new HashMap<>();
+
   protected TeleporterManager() {}
 
   @SubscribeEvent
-  public static void handleServerAboutToStartEvent(ServerAboutToStartEvent event) {}
+  public static void handleServerAboutToStartEvent(ServerAboutToStartEvent event) {
+    // Clear teleport history on server start to avoid side effects.
+    teleportHistoryDimensionMap = new HashMap<>();
+    teleportHistoryPositionMap = new HashMap<>();
+  }
 
-  public static boolean teleportToApartmentDimension(ServerPlayer player) {
+  public static boolean teleportToApartmentDimension(ServerPlayer player, BlockPos spawnPosition) {
     ServerLevel apartmentDimension = DimensionManager.getApartmentDimension();
     boolean isSameDimension = player.level() == apartmentDimension;
-    boolean successfullyTeleported = teleportPlayer(player, apartmentDimension);
+    boolean successfullyTeleported = teleportPlayer(player, apartmentDimension, spawnPosition);
     if (successfullyTeleported && !isSameDimension) {
       player.sendSystemMessage(
           Component.translatable(Constants.TEXT_PREFIX + "welcome_to_apartment"));
@@ -57,11 +67,33 @@ public class TeleporterManager {
     return successfullyTeleported;
   }
 
-  private static boolean teleportPlayer(ServerPlayer player, ServerLevel dimension) {
+  public static boolean teleportToBackLastDimension(ServerPlayer player) {
+    ResourceKey<Level> lastDimension = teleportHistoryDimensionMap.get(player);
+    BlockPos lastPosition = teleportHistoryPositionMap.get(player);
+    if (lastDimension == null || lastPosition == null) {
+      ServerLevel respawnLevel = player.server.getLevel(player.getRespawnDimension());
+      BlockPos respawnPosition = player.getRespawnPosition();
+      log.warn("Unable to find last dimension for player {}, will use respawn dimension {} with {}",
+          player, respawnLevel, respawnPosition);
+      return teleportPlayer(player, respawnLevel, respawnPosition);
+    }
+    return teleportPlayer(player, player.server.getLevel(lastDimension), lastPosition);
+  }
+
+  private static boolean teleportPlayer(ServerPlayer player, ServerLevel dimension,
+      BlockPos spawnPosition) {
     // Ignore client side levels and if dimension was not found.
     if (player.level().isClientSide() || dimension == null) {
       return false;
     }
+
+    // Use spawn position if available.
+    if (spawnPosition != null) {
+      return teleportPlayer(player, dimension, spawnPosition.getX(), spawnPosition.getY(),
+          spawnPosition.getZ());
+    }
+
+    // Use shared spawn position as fallback.
     BlockPos sharedSpawnPos = dimension.getSharedSpawnPos();
     return teleportPlayer(player, dimension, sharedSpawnPos.getX(), sharedSpawnPos.getY(),
         sharedSpawnPos.getZ());
@@ -76,7 +108,12 @@ public class TeleporterManager {
 
     // If we are already in the same dimension use a simple teleport instead.
     if (player.level() == dimension) {
-      addTeleportHistory(player);
+
+      // Only store teleport history if we are not already in the apartment dimension.
+      if (dimension.dimension() != DimensionManager.getApartmentDimension().dimension()) {
+        addTeleportHistory(player);
+      }
+
       player.teleportTo(x, y, z);
       return true;
     }
@@ -87,11 +124,15 @@ public class TeleporterManager {
     return true;
   }
 
-  private static void addTeleportHistory(ServerPlayer player) {
-    Level level = player.level();
+  public static void addTeleportHistory(ServerPlayer serverPlayer) {
+    Level level = serverPlayer.level();
     ResourceKey<Level> dimension = level.dimension();
-    BlockPos blockPos = player.blockPosition();
+    BlockPos blockPos = serverPlayer.blockPosition();
+    teleportHistoryDimensionMap.put(serverPlayer, dimension);
+    teleportHistoryPositionMap.put(serverPlayer, blockPos);
 
-    log.debug("Add teleport history for player {} in {} with {}", player, dimension, blockPos);
+    log.debug("Add teleport history for player {} in {} with {}", serverPlayer, dimension,
+        blockPos);
   }
+
 }

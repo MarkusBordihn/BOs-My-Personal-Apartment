@@ -28,8 +28,10 @@ import net.minecraft.network.chat.Component;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.item.Items;
+
 import net.minecraftforge.network.NetworkEvent;
 import net.minecraftforge.network.NetworkHooks;
+
 import de.markusbordihn.mypersonalapartment.Constants;
 import de.markusbordihn.mypersonalapartment.config.CommonConfig;
 import de.markusbordihn.mypersonalapartment.data.ApartmentsData;
@@ -52,8 +54,8 @@ public class MessagePayBrokerFee {
   }
 
   public static void handlePacket(MessagePayBrokerFee message, NetworkEvent.Context context) {
+    // Verify server player.
     ServerPlayer serverPlayer = context.getSender();
-
     if (serverPlayer == null) {
       return;
     }

@@ -57,12 +57,8 @@ public final class CommonConfig {
     public final ForgeConfigSpec.IntValue apartmentMaxNumberOfApartments;
     public final ForgeConfigSpec.IntValue apartmentBrokerFee;
 
-    public final ForgeConfigSpec.ConfigValue<List<String>> tier0Items;
-    public final ForgeConfigSpec.ConfigValue<List<String>> tier1Items;
-    public final ForgeConfigSpec.ConfigValue<List<String>> tier2Items;
-    public final ForgeConfigSpec.ConfigValue<List<String>> tier3Items;
-    public final ForgeConfigSpec.ConfigValue<List<String>> tier4Items;
-    public final ForgeConfigSpec.ConfigValue<List<String>> tier5Items;
+    public final ForgeConfigSpec.IntValue apartmentsTier1Price;
+    public final ForgeConfigSpec.ConfigValue<List<String>> apartmentsTier1;
 
     public final ForgeConfigSpec.IntValue generalCommandCoolDown;
 
@@ -130,19 +126,15 @@ public final class CommonConfig {
           .defineInRange("apartmentBrokerFee", 64, 0, 512);
       builder.pop();
 
-      builder.push("Tier Items");
-      tier0Items =
-          builder.comment("List of items for tier 0 apartment.").define("tier0Items", List.of(""));
-      tier1Items = builder.comment("List of items for tier 1 apartment.").define("tier1Items",
-          List.of("minecraft:bed", "minecraft:chest"));
-      tier2Items = builder.comment("List of items for tier 2 apartment.").define("tier2Items",
-          List.of("minecraft:bed", "minecraft:chest"));
-      tier3Items = builder.comment("List of items for tier 3 apartment.").define("tier3Items",
-          List.of("minecraft:bed", "minecraft:chest"));
-      tier4Items = builder.comment("List of items for tier 4 apartment.").define("tier4Items",
-          List.of("minecraft:bed", "minecraft:chest"));
-      tier5Items = builder.comment("List of items for tier 5 apartment.").define("tier5Items",
-          List.of("minecraft:bed", "minecraft:chest"));
+      builder.push("Tier 1 - Apartments");
+      apartmentsTier1Price = builder.comment("Price for tier 1 apartments.")
+          .defineInRange("apartmentsTier1Price", 100, 0, 10000);
+      apartmentsTier1 = builder.comment("List of tier 1 apartments structure.")
+          .define("apartmentsTier1", List.of(
+            "my_personal_apartment:apartment/16x16/tier1/16x16_tier1_oak_apartment",
+            "my_personal_apartment:apartment/16x16/tier1/16x16_tier1_spruce_apartment",
+            "my_personal_apartment:apartment/16x16/tier1/16x16_tier1_acacia_apartment"
+            ));
       builder.pop();
 
       builder.push("Commands");

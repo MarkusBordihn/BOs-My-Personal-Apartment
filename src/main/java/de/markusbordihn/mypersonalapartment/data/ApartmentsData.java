@@ -30,9 +30,11 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
 import net.minecraft.nbt.CompoundTag;
+import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.server.MinecraftServer;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
+import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.level.saveddata.SavedData;
 
 import net.minecraftforge.event.server.ServerAboutToStartEvent;
@@ -41,12 +43,16 @@ import net.minecraftforge.fml.common.Mod.EventBusSubscriber;
 import net.minecraftforge.server.ServerLifecycleHooks;
 
 import de.markusbordihn.mypersonalapartment.Constants;
+import de.markusbordihn.mypersonalapartment.config.CommonConfig;
 import de.markusbordihn.mypersonalapartment.dimension.DimensionManager;
 
 @EventBusSubscriber
 public class ApartmentsData extends SavedData {
 
   public static final Logger log = LogManager.getLogger(Constants.LOG_NAME);
+
+  // Config values
+  protected static final CommonConfig.Config COMMON = CommonConfig.COMMON;
 
   // Saved Data
   private static final String FILE_ID = Constants.MOD_ID;
@@ -123,8 +129,25 @@ public class ApartmentsData extends SavedData {
     this.dimensionLoaded = loaded;
   }
 
+  public Set<ApartmentData> getApartmentData(Player Player) {
+    if (Player instanceof ServerPlayer serverPlayer) {
+      return this.getApartmentData(serverPlayer);
+    }
+    return new HashSet<>();
+  }
+
   public Set<ApartmentData> getApartmentData(ServerPlayer serverPlayer) {
     return this.getApartmentData(serverPlayer.getUUID());
+  }
+
+  public ApartmentData getApartmentData(ServerPlayer serverPlayer, UUID apartmentUUID) {
+    Set<ApartmentData> apartmentDataSet = this.getApartmentData(serverPlayer);
+    for (ApartmentData apartmentData : apartmentDataSet) {
+      if (apartmentData.getApartmentUUID().equals(apartmentUUID)) {
+        return apartmentData;
+      }
+    }
+    return null;
   }
 
   public void addApartmentData(ServerPlayer serverPlayer, ApartmentData apartmentData) {
@@ -150,12 +173,28 @@ public class ApartmentsData extends SavedData {
     return this.apartmentsMap.containsKey(uuid);
   }
 
+  public boolean hasApartment(ServerPlayer serverPlayer) {
+    return this.hasApartment(serverPlayer.getUUID());
+  }
+
+  public boolean hasApartment(UUID uuid) {
+    return this.apartmentsMap.containsKey(uuid) && !this.apartmentsMap.get(uuid).isEmpty();
+  }
+
   public int getNumberOfApartments(ServerPlayer serverPlayer) {
     return this.getNumberOfApartments(serverPlayer.getUUID());
   }
 
   public int getNumberOfApartments(UUID uuid) {
     return this.apartmentsMap.get(uuid).size();
+  }
+
+  public boolean hasMaxApartments(ServerPlayer serverPlayer) {
+    return this.hasMaxApartments(serverPlayer.getUUID());
+  }
+
+  public boolean hasMaxApartments(UUID uuid) {
+    return this.getNumberOfApartments(uuid) >= COMMON.apartmentMaxNumberOfApartments.get();
   }
 
   public static ApartmentsData load(CompoundTag compoundTag) {
@@ -205,6 +244,23 @@ public class ApartmentsData extends SavedData {
     }
 
     return compoundTag;
+  }
+
+  public void writeApartmentsToBuffer(ServerPlayer serverPlayer, FriendlyByteBuf buffer) {
+    Set<ApartmentData> apartmentDataSet = this.getApartmentData(serverPlayer);
+    buffer.writeInt(apartmentDataSet.size());
+    for (ApartmentData apartmentData : apartmentDataSet) {
+      apartmentData.writeToBuffer(buffer);
+    }
+  }
+
+  public static Set<ApartmentData> readApartmentsFromBuffer(FriendlyByteBuf buffer) {
+    Set<ApartmentData> apartments = new HashSet<>();
+    int size = buffer.readInt();
+    for (int i = 0; i < size; i++) {
+      apartments.add(new ApartmentData(buffer));
+    }
+    return apartments;
   }
 
 }

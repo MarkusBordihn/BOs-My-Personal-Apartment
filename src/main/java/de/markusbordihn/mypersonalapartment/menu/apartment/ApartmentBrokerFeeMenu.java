@@ -54,7 +54,8 @@ public class ApartmentBrokerFeeMenu extends ApartmentMenu {
     return new MenuProvider() {
       @Override
       public Component getDisplayName() {
-        return Component.literal("🏢 Apartment Broker Fee Dialog for " + player.getName().getString());
+        return Component
+            .literal("🏢 Apartment Broker Fee Dialog for " + player.getName().getString());
       }
 
       @Nullable

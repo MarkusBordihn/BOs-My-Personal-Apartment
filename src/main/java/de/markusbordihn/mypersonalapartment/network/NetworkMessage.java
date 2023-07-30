@@ -19,11 +19,16 @@
 
 package de.markusbordihn.mypersonalapartment.network;
 
+import java.util.UUID;
+
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
 import de.markusbordihn.mypersonalapartment.Constants;
+import de.markusbordihn.mypersonalapartment.network.message.MessageClaimApartment;
 import de.markusbordihn.mypersonalapartment.network.message.MessagePayBrokerFee;
+import de.markusbordihn.mypersonalapartment.network.message.MessageTeleportBack;
+import de.markusbordihn.mypersonalapartment.network.message.MessageTeleportToApartment;
 
 public class NetworkMessage {
 
@@ -31,8 +36,28 @@ public class NetworkMessage {
 
   protected NetworkMessage() {}
 
-  /** Send action change. */
+  /** Pay broker fee. */
   public static void payBrokerFee() {
     NetworkHandler.sendToServer(new MessagePayBrokerFee());
   }
+
+  /** Claim apartment */
+  public static void claimApartment(int tier, String apartmentId) {
+    if (tier > 0 && tier <= 3 && apartmentId != null && !apartmentId.isEmpty()) {
+      NetworkHandler.sendToServer(new MessageClaimApartment(tier, apartmentId));
+    }
+  }
+
+  /** Teleport to apartment */
+  public static void teleportToApartment(UUID apartmentId) {
+    if (apartmentId != null) {
+      NetworkHandler.sendToServer(new MessageTeleportToApartment(apartmentId));
+    }
+  }
+
+  /** Teleport back */
+  public static void teleportBack() {
+    NetworkHandler.sendToServer(new MessageTeleportBack());
+  }
+
 }

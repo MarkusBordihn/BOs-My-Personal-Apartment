@@ -32,7 +32,10 @@ import net.minecraftforge.network.PacketDistributor;
 import net.minecraftforge.network.simple.SimpleChannel;
 
 import de.markusbordihn.mypersonalapartment.Constants;
+import de.markusbordihn.mypersonalapartment.network.message.MessageClaimApartment;
 import de.markusbordihn.mypersonalapartment.network.message.MessagePayBrokerFee;
+import de.markusbordihn.mypersonalapartment.network.message.MessageTeleportBack;
+import de.markusbordihn.mypersonalapartment.network.message.MessageTeleportToApartment;
 
 @EventBusSubscriber
 public class NetworkHandler {
@@ -53,9 +56,26 @@ public class NetworkHandler {
 
     event.enqueueWork(() -> {
 
-      // Action Change: Client -> Server
+      // Pay Broker Fee: Client -> Server
       INSTANCE.registerMessage(id++, MessagePayBrokerFee.class, (message, buffer) -> {
       }, buffer -> new MessagePayBrokerFee(), MessagePayBrokerFee::handle);
+
+      // Claim Apartment: Client -> Server
+      INSTANCE.registerMessage(id++, MessageClaimApartment.class, (message, buffer) -> {
+        buffer.writeInt(message.getTier());
+        buffer.writeUtf(message.getApartmentId());
+      }, buffer -> new MessageClaimApartment(buffer.readInt(), buffer.readUtf()),
+          MessageClaimApartment::handle);
+
+      // Teleport to Apartment: Client -> Server
+      INSTANCE.registerMessage(id++, MessageTeleportToApartment.class, (message, buffer) -> {
+        buffer.writeUUID(message.getApartmentId());
+      }, buffer -> new MessageTeleportToApartment(buffer.readUUID()),
+          MessageTeleportToApartment::handle);
+
+      // Teleport back: Client -> Server
+      INSTANCE.registerMessage(id++, MessageTeleportBack.class, (message, buffer) -> {
+      }, buffer -> new MessageTeleportBack(), MessageTeleportBack::handle);
     });
   }
 

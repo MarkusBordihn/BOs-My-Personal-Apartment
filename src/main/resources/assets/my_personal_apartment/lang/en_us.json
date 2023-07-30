@@ -7,8 +7,20 @@
   "text.my_personal_apartment.reception.give_me_some_time_button": "❌ Give me some time ...",
   "text.my_personal_apartment.reception.claim_apartment": "You are able to claim up to %2$s apartments.\nDo you want to claim a apartment?",
   "text.my_personal_apartment.reception.claim_apartment_button": "✔ Claim this apartment",
+  "text.my_personal_apartment.reception.teleport_apartment": "Do you want to teleport to your apartment?",
+  "text.my_personal_apartment.reception.teleport_apartment_button": "Teleport",
+  "text.my_personal_apartment.reception.teleport_apartment_no_button": "❌ No, thanks",
+  "text.my_personal_apartment.reception.teleport_back_button": "🏠 Teleport back, what ever that means ...",
   "text.my_personal_apartment.reception.show_next_apartment_button": "Next >",
   "text.my_personal_apartment.reception.show_previous_apartment_button": "< Previouse ",
+  "text.my_personal_apartment.reception.": "You have successfully claimed the apartment %1$s.",
+
+  "text.my_personal_apartment.apartment.16x16.tier1.16x16_tier1_acacia_apartment.name": "Tier 1: Acacia Apartment",
+  "text.my_personal_apartment.apartment.16x16.tier1.16x16_tier1_acacia_apartment.description": "A small and empty apartment with a single room and a acacia floor to be creative.",
+  "text.my_personal_apartment.apartment.16x16.tier1.16x16_tier1_oak_apartment.name": "Tier 1: Oak Apartment",
+  "text.my_personal_apartment.apartment.16x16.tier1.16x16_tier1_oak_apartment.description": "A small and empty apartment with a single room and a oak floor to be creative.",
+  "text.my_personal_apartment.apartment.16x16.tier1.16x16_tier1_spruce_apartment.name": "Tier 1: Spruce Apartment",
+  "text.my_personal_apartment.apartment.16x16.tier1.16x16_tier1_spruce_apartment.description": "A small and empty apartment with a single room and a spruce floor to be creative.",
 
   "entity.my_personal_apartment.reception": "Reception",
 

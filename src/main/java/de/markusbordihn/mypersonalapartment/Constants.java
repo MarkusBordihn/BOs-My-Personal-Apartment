@@ -42,6 +42,7 @@ public final class Constants {
   public static final String MESSAGE_PREFIX = "message.my_personal_apartment.";
   public static final String TEXT_PREFIX = "text.my_personal_apartment.";
   public static final String TEXT_RECEPTION_PREFIX = TEXT_PREFIX + "reception.";
+  public static final String TEXT_APARTMENT_PREFIX = TEXT_PREFIX + "apartment.";
   public static final String LOG_DIMENSION_MANAGER_PREFIX =
       "[My Personal Apartment: Dimension Manager]";
   public static final String LOG_TELEPORT_MANAGER_PREFIX =

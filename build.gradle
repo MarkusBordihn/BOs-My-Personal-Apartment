@@ -122,7 +122,6 @@ repositories {
         includeGroup "curse.maven"
     }
   }
-   maven { url 'https://maven.blamejared.com' }
 }
 
 dependencies {
@@ -135,23 +134,11 @@ dependencies {
   compileOnly fg.deobf("curse.maven:jade-324717:4614153")
   runtimeOnly fg.deobf("curse.maven:jade-324717:4614153")
 
-  // Patchouli Integration
-  // runtimeOnly fg.deobf("curse.maven:patchouli-306770:4636277")
-
-  // Testing
-  // runtimeOnly fg.deobf("curse.maven:neat-238372:3593906")
-
-  // Compability tests
-  // runtimeOnly fg.deobf("curse.maven:human-companions-570319:3734505")
-  // runtimeOnly fg.deobf("curse.maven:guard-villagers-360203:3823108")
-  // runtimeOnly fg.deobf("curse.maven:carry-on-274259:3601938")
-  // runtimeOnly fg.deobf("curse.maven:silent-lib-242998:3661417")
-  // runtimeOnly fg.deobf("curse.maven:scaling-health-248027:3580899")
-  // runtimeOnly fg.deobf("curse.maven:morevanillaarmor-350955:3826362")
-
   // Additional helpful Mods for development (dev depenedency)
   // runtimeOnly fg.deobf("curse.maven:item-zoom-261725:3749454")
+  runtimeOnly fg.deobf("curse.maven:carry-on-274259:4628675")
   runtimeOnly fg.deobf("curse.maven:jei-238222:4644453")
+  runtimeOnly fg.deobf("curse.maven:worldedit-225608:4586218")
   runtimeOnly fg.deobf("curse.maven:xaeros_minimap-263420:4593190")
 }
 
