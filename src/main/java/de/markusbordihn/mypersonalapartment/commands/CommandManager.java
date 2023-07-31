@@ -48,6 +48,11 @@ public class CommandManager {
   public static void handleRegisterCommandsEvent(RegisterCommandsEvent event) {
     log.info("Registering commands for {} ...", Constants.MOD_NAME);
     CommandDispatcher<CommandSourceStack> commandDispatcher = event.getDispatcher();
+    commandDispatcher.register(Commands.literal(Constants.MOD_COMMAND)
+    // @formatter:off
+      .then(BackCommand.register())
+    // @formatter:on
+    );
   }
 
   public static void executeServerCommand(String command) {

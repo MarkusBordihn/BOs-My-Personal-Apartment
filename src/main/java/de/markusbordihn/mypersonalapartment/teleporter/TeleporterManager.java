@@ -23,9 +23,11 @@ import java.util.HashMap;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
-
+import net.minecraft.ChatFormatting;
 import net.minecraft.core.BlockPos;
+import net.minecraft.network.chat.ClickEvent;
 import net.minecraft.network.chat.Component;
+import net.minecraft.network.chat.Style;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
@@ -43,9 +45,12 @@ public class TeleporterManager {
 
   private static final Logger log = LogManager.getLogger(Constants.LOG_NAME);
 
+
   private static HashMap<ServerPlayer, ResourceKey<Level>> teleportHistoryDimensionMap =
       new HashMap<>();
   private static HashMap<ServerPlayer, BlockPos> teleportHistoryPositionMap = new HashMap<>();
+
+  private static Component backCommand;
 
   protected TeleporterManager() {}
 
@@ -54,6 +59,11 @@ public class TeleporterManager {
     // Clear teleport history on server start to avoid side effects.
     teleportHistoryDimensionMap = new HashMap<>();
     teleportHistoryPositionMap = new HashMap<>();
+
+    // Clickable commands
+    backCommand = Component.literal("/my_personal_apartment back")
+        .setStyle(Style.EMPTY.withColor(ChatFormatting.GREEN).withClickEvent(
+            new ClickEvent(ClickEvent.Action.SUGGEST_COMMAND, "/my_personal_apartment back")));
   }
 
   public static boolean teleportToApartmentDimension(ServerPlayer player, BlockPos spawnPosition) {
@@ -62,12 +72,12 @@ public class TeleporterManager {
     boolean successfullyTeleported = teleportPlayer(player, apartmentDimension, spawnPosition);
     if (successfullyTeleported && !isSameDimension) {
       player.sendSystemMessage(
-          Component.translatable(Constants.TEXT_PREFIX + "welcome_to_apartment"));
+          Component.translatable(Constants.TEXT_PREFIX + "welcome_to_apartment", backCommand));
     }
     return successfullyTeleported;
   }
 
-  public static boolean teleportToBackLastDimension(ServerPlayer player) {
+  public static boolean teleportBackToLastDimension(ServerPlayer player) {
     ResourceKey<Level> lastDimension = teleportHistoryDimensionMap.get(player);
     BlockPos lastPosition = teleportHistoryPositionMap.get(player);
     if (lastDimension == null || lastPosition == null) {

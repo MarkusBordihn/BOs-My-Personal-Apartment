@@ -42,7 +42,7 @@ import de.markusbordihn.mypersonalapartment.network.NetworkMessage;
 
 
 @OnlyIn(Dist.CLIENT)
-public class ClaimApartmentScreen<T extends ClaimApartmentMenu> extends ApartmentScreen<T> {
+public class ClaimApartmentScreen extends ApartmentScreen<ClaimApartmentMenu> {
 
   // Apartments
   List<String> tier1Apartments = new ArrayList<>(Sets.newHashSet(COMMON.apartmentsTier1.get()));
@@ -66,7 +66,7 @@ public class ClaimApartmentScreen<T extends ClaimApartmentMenu> extends Apartmen
   protected int apartmentIndexMax = this.tier1Apartments.size();
   protected ResourceLocation apartmentImage = null;
 
-  public ClaimApartmentScreen(T menu, Inventory inventory, Component component) {
+  public ClaimApartmentScreen(ClaimApartmentMenu menu, Inventory inventory, Component component) {
     super(menu, inventory, component);
   }
 
@@ -93,8 +93,8 @@ public class ClaimApartmentScreen<T extends ClaimApartmentMenu> extends Apartmen
                         log.error("Apartment ID is empty!");
                         return;
                       }
-                      log.info("Claim apartment {}", apartmentId);
                       NetworkMessage.claimApartment(1, apartmentId);
+                      this.minecraftInstance.setScreen(null);
                     })
                 .bounds(this.leftPos + 15, this.topPos + 210, 270, 20).build());
     this.showPreviousApartmentButton =

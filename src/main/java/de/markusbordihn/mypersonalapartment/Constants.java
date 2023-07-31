@@ -41,6 +41,7 @@ public final class Constants {
   public static final String MINECRAFT_PREFIX = "minecraft";
   public static final String MESSAGE_PREFIX = "message.my_personal_apartment.";
   public static final String TEXT_PREFIX = "text.my_personal_apartment.";
+  public static final String TEXT_COMMAND_PREFIX = TEXT_PREFIX + "command.";
   public static final String TEXT_RECEPTION_PREFIX = TEXT_PREFIX + "reception.";
   public static final String TEXT_APARTMENT_PREFIX = TEXT_PREFIX + "apartment.";
   public static final String LOG_DIMENSION_MANAGER_PREFIX =

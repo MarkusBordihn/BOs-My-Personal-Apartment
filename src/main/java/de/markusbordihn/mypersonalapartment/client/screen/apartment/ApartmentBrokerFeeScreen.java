@@ -38,7 +38,7 @@ import de.markusbordihn.mypersonalapartment.menu.apartment.ApartmentBrokerFeeMen
 import de.markusbordihn.mypersonalapartment.network.NetworkMessage;
 
 @OnlyIn(Dist.CLIENT)
-public class ApartmentBrokerFeeScreen<T extends ApartmentBrokerFeeMenu> extends ApartmentScreen<T> {
+public class ApartmentBrokerFeeScreen extends ApartmentScreen<ApartmentBrokerFeeMenu> {
 
   // Buttons
   protected Button payBrokerFreeButton = null;
@@ -52,7 +52,7 @@ public class ApartmentBrokerFeeScreen<T extends ApartmentBrokerFeeMenu> extends 
   private List<FormattedCharSequence> textComponents = Collections.emptyList();
   protected int numberOfTextLines = 1;
 
-  public ApartmentBrokerFeeScreen(T menu, Inventory inventory, Component component) {
+  public ApartmentBrokerFeeScreen(ApartmentBrokerFeeMenu menu, Inventory inventory, Component component) {
     super(menu, inventory, component);
     this.brokerFee = menu.getApartmentBrokerFee();
   }

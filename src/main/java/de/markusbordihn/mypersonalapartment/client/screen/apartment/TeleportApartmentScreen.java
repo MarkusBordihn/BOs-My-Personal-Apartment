@@ -40,7 +40,7 @@ import de.markusbordihn.mypersonalapartment.menu.apartment.TeleportApartmentMenu
 import de.markusbordihn.mypersonalapartment.network.NetworkMessage;
 
 @OnlyIn(Dist.CLIENT)
-public class TeleportApartmentScreen<T extends TeleportApartmentMenu> extends ApartmentScreen<T> {
+public class TeleportApartmentScreen extends ApartmentScreen<TeleportApartmentMenu> {
 
   // Apartments
   Set<ApartmentData> apartments = new HashSet<>();
@@ -56,7 +56,7 @@ public class TeleportApartmentScreen<T extends TeleportApartmentMenu> extends Ap
   // Cache
   private boolean isInApartmentDimension = false;
 
-  public TeleportApartmentScreen(T menu, Inventory inventory, Component component) {
+  public TeleportApartmentScreen(TeleportApartmentMenu menu, Inventory inventory, Component component) {
     super(menu, inventory, component);
     this.apartments = menu.getApartmentsData();
     this.isInApartmentDimension = this.clientLevel.dimension().location().toString()

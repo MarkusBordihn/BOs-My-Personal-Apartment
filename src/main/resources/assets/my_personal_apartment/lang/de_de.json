@@ -1,11 +1,37 @@
 {
   "block.my_personal_apartment.key_holder_basic": "Schlüsselhalter",
 
-  "text.my_personal_apartment.reception": "Empfang",
+  "text.my_personal_apartment.reception": "Rezeption",
+  "text.my_personal_apartment.reception.pay_broker_fee": "Willkommen %1$s und ich hoffe, dass es dir gut geht.\nBevor du eine Wohnung bekommst, müssen die Maklergebühr von %2$s x %3$s bezahlt werden.\n \nLassen mich wissen, wenn du zur Zahlung bereit bist.",
+  "text.my_personal_apartment.reception.pay_broker_free_button": " ✔ Zahle %1$s x %2$s Maklergebühr",
+  "text.my_personal_apartment.reception.give_me_some_time_button": "❌ Gib mir etwas Zeit ...",
+  "text.my_personal_apartment.reception.claim_apartment": "Du kannst bis zu %2$s Wohnungen beanspruchen.\nMöchtest du eine Wohnung haben?",
+  "text.my_personal_apartment.reception.claim_apartment_button": " ✔ Beanspruche dieses Wohnung",
+  "text.my_personal_apartment.reception.teleport_apartment": "Möchtest du dich zu deiner Wohnung teleportieren?",
+  "text.my_personal_apartment.reception.teleport_apartment_button": "Teleportieren",
+  "text.my_personal_apartment.reception.teleport_apartment_no_button": "❌ Nein, danke",
+  "text.my_personal_apartment.reception.teleport_back_button": "🏠 Zurück teleportieren, was auch immer das bedeutet ...",
+  "text.my_personal_apartment.reception.show_next_apartment_button": "Weiter >",
+  "text.my_personal_apartment.reception.show_ previous_apartment_button": "< Zurück",
+  "text.my_personal_apartment.reception.": "Du hast deine Wohnung %1$s erfolgreich beansprucht.",
 
-  "entity.my_personal_apartment.reception": "Empfang",
+  "text.my_personal_apartment.apartment.16x16.tier1.16x16_tier1_acacia_apartment.name": "Stufe 1: Akazien Apartment",
+  "text.my_personal_apartment.apartment.16x16.tier1.16x16_tier1_acacia_apartment.description": "Eine kleine und leere Wohnung mit einem Einzelzimmer und einem Akazienboden, um kreativ zu sein.",
+  "text.my_personal_apartment.apartment.16x16.tier1.16x16_tier1_oak_apartment.name": "Ebene 1: Eichen Apartment",
+  "text.my_personal_apartment.apartment.16x16.tier1.16x16_tier1_oak_apartment.description": "Eine kleine und leere Wohnung mit einem Einzelzimmer und einem Eichenboden, um kreativ zu sein.",
+  "text.my_personal_apartment.apartment.16x16.tier1.16x16_tier1_spruce_apartment.name": "Stufe 1: Fichten Apartment",
+  "text.my_personal_apartment.apartment.16x16.tier1.16x16_tier1_spruce_apartment.description": "Eine kleine und leere Wohnung mit einem Einzelzimmer und einem Fichtenboden, um kreativ zu sein.",
 
-  "message.my_personal_apartment.no_apartment": "Es sieht so aus, als hättest du noch keine Wohnung.\nSprich mit dem Empfang um eine neue Wohnung zu erhalten, um loszulegen!",
+  "text.my_personal_apartment.welcome_to_apartment": "Willkommen in deiner Wohnung! Du kannst den Befehl %1$s verwenden, um dich zu deiner letzten Dimension bzw. letzten Spawnpunkt zurück zu teleportieren.",
+
+  "text.my_personal_apartment.command.back.error.not_in_apartment_dimension": "Du befinden dich nicht in der Wohnungs dimension, um diesen Befehl zu verwenden!",
+  "text.my_personal_apartment.command.back.error.no_apartment": "Du hast noch keine Wohnung.",
+  "text.my_personal_apartment.command.back.error.back.error.no_last_dimension": "Du hast keine letzte Dimension, in die du dich zurückteleportieren kannst.",
+  "text.my_personal_apartment.command.back.success": "Du wirst zurück in deine letzte Dimension teleportiert.",
+
+  "entity.my_personal_apartment.reception": "Rezeption",
+
+  "message.my_personal_apartment.no_apartment": "Es sieht so aus, als hättest du noch keine Wohnung.\nSpreche zuerst mit der Rezeption, um eine neue Wohnung zu finden!",
 
   "itemGroup.my_personal_apartment.apartment": "Meine persönliche Wohnung"
 }

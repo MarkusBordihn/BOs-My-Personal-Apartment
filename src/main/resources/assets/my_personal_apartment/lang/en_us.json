@@ -22,6 +22,13 @@
   "text.my_personal_apartment.apartment.16x16.tier1.16x16_tier1_spruce_apartment.name": "Tier 1: Spruce Apartment",
   "text.my_personal_apartment.apartment.16x16.tier1.16x16_tier1_spruce_apartment.description": "A small and empty apartment with a single room and a spruce floor to be creative.",
 
+  "text.my_personal_apartment.welcome_to_apartment" : "Welcome to your apartment! You can use the %1$s command to teleport back to your last dimension / spawn point.",
+
+  "text.my_personal_apartment.command.back.error.not_in_apartment_dimension": "You are not in the apartment dimension to use this command!",
+  "text.my_personal_apartment.command.back.error.no_apartment": "You don't have an apartment, yet.",
+  "text.my_personal_apartment.command.back.error.back.error.no_last_dimension": "You don't have a last dimension to teleport back to.",
+  "text.my_personal_apartment.command.back.success": "You will be teleported back to your last dimension.",
+
   "entity.my_personal_apartment.reception": "Reception",
 
   "message.my_personal_apartment.no_apartment": "It looks like you don't have an apartment yet.\nTalk to reception to get a new apartment to get started!",

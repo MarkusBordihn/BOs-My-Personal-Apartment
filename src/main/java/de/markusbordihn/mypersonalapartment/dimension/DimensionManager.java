@@ -28,7 +28,7 @@ import org.apache.logging.log4j.Logger;
 import net.minecraft.server.MinecraftServer;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.entity.player.Player;
-
+import net.minecraft.world.level.Level;
 import net.minecraftforge.event.entity.player.PlayerEvent.PlayerChangedDimensionEvent;
 import net.minecraftforge.event.server.ServerAboutToStartEvent;
 import net.minecraftforge.event.server.ServerStartedEvent;
@@ -106,6 +106,20 @@ public class DimensionManager {
           + "If this is the first time you see this message or if you just started a new world, try to restart your server to generate them automatically!",
           Constants.LOG_DIMENSION_MANAGER_PREFIX, apartmentDimensionName);
     }
+  }
+
+  public static boolean isApartmentDimension(Level level) {
+    if (level instanceof ServerLevel serverLevel) {
+      return isApartmentDimension(serverLevel);
+    }
+    return false;
+  }
+
+  public static boolean isApartmentDimension(ServerLevel serverLevel) {
+    if (apartmentLevel == null) {
+      mapServerLevel(ServerLifecycleHooks.getCurrentServer());
+    }
+    return serverLevel.equals(apartmentLevel);
   }
 
   public static ServerLevel getApartmentDimension() {
