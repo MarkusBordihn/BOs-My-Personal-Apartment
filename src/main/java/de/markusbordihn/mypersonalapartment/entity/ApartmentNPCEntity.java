@@ -26,11 +26,17 @@ import net.minecraft.world.entity.ai.goal.RandomLookAroundGoal;
 import net.minecraft.world.entity.animal.FlyingAnimal;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.level.Level;
+import net.minecraft.world.level.block.Blocks;
+import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.Vec3;
 
 import de.markusbordihn.mypersonalapartment.config.CommonConfig;
 
 public class ApartmentNPCEntity extends ApartmentNPCEntityData {
+
+  // Custom Ticker
+  private static final int TRAVEL_TICK = 40;
+  private int travelTicker = random.nextInt(TRAVEL_TICK / 2);
 
   // Config values
   protected static final CommonConfig.Config COMMON = CommonConfig.COMMON;
@@ -64,8 +70,17 @@ public class ApartmentNPCEntity extends ApartmentNPCEntityData {
 
   @Override
   public void travel(Vec3 vec3) {
-    // Make sure we only calculate animations for be as much as possible server-friendly.
+    // Make sure we only calculate animations for be as much as possible client and server-friendly.
     this.calculateEntityAnimation(this instanceof FlyingAnimal);
+
+    // Allow animation, if entity is falling or placed in air.
+    if (travelTicker++ >= TRAVEL_TICK) {
+      BlockState blockState = this.level().getBlockState(this.getOnPos());
+      if (blockState.is(Blocks.AIR) || blockState.is(Blocks.GRASS)) {
+        super.travel(vec3);
+      }
+      travelTicker = 0;
+    }
   }
 
 }

@@ -38,6 +38,8 @@ import net.minecraft.world.level.BlockGetter;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.HorizontalDirectionalBlock;
+import net.minecraft.world.level.block.Mirror;
+import net.minecraft.world.level.block.Rotation;
 import net.minecraft.world.level.block.state.BlockBehaviour;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.StateDefinition;
@@ -87,9 +89,8 @@ public class KeyHolderBlock extends Block {
         player.sendSystemMessage(message);
         return InteractionResult.CONSUME;
       } else {
-        MutableComponent message =
-            Component.translatable(Constants.MESSAGE_PREFIX + "no_apartment")
-                .withStyle(ChatFormatting.YELLOW);
+        MutableComponent message = Component.translatable(Constants.MESSAGE_PREFIX + "no_apartment")
+            .withStyle(ChatFormatting.YELLOW);
         player.sendSystemMessage(message);
         return InteractionResult.CONSUME;
       }
@@ -118,21 +119,29 @@ public class KeyHolderBlock extends Block {
   }
 
   @Override
-  protected void createBlockStateDefinition(StateDefinition.Builder<Block, BlockState> blockState) {
-    blockState.add(FACING);
+  @Nullable
+  public BlockState getStateForPlacement(BlockPlaceContext context) {
+    return this.defaultBlockState().setValue(FACING,
+        context.getHorizontalDirection().getOpposite());
+  }
+
+  /** @deprecated */
+  @Deprecated
+  @Override
+  public BlockState rotate(BlockState blockState, Rotation rotation) {
+    return blockState.setValue(FACING, rotation.rotate(blockState.getValue(FACING)));
+  }
+
+  /** @deprecated */
+  @Deprecated
+  @Override
+  public BlockState mirror(BlockState blockState, Mirror mirror) {
+    return blockState.rotate(mirror.getRotation(blockState.getValue(FACING)));
   }
 
   @Override
-  @Nullable
-  public BlockState getStateForPlacement(BlockPlaceContext context) {
-
-    // Replace top and bottom with north to avoid problems with the facing direction.
-    Direction clickedFace = context.getClickedFace();
-    if (clickedFace == Direction.UP || clickedFace == Direction.DOWN) {
-      clickedFace = Direction.NORTH;
-    }
-
-    return this.defaultBlockState().setValue(FACING, clickedFace);
+  protected void createBlockStateDefinition(StateDefinition.Builder<Block, BlockState> blockState) {
+    blockState.add(FACING);
   }
 
 }

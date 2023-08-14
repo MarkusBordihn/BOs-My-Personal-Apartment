@@ -15,9 +15,11 @@
     "forceload",
     "interdimensional",
     "Kaupenjoe",
+    "MAKENA",
     "Markus",
     "markusbordihn",
     "mypersonalapartment",
+    "NOOR",
     "overworld",
     "Pushable",
     "Reposts",
@@ -27,7 +29,8 @@
     "Teleporting",
     "Unforce",
     "Voxel",
-    "worldgen"
+    "worldgen",
+    "ZURI"
   ],
   "cSpell.ignorePaths": [
     "*.yml",

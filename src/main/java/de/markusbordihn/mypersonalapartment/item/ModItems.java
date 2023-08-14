@@ -40,7 +40,36 @@ public class ModItems {
   public static final RegistryObject<Item> KEY_HOLDER_BASIC = ITEMS.register("key_holder_basic",
       () -> new BlockItem(ModBlocks.KEY_HOLDER_BASIC.get(), new Item.Properties()));
 
-  public static final RegistryObject<Item> RECEPTION_SPAWN_EGG = ITEMS.register("reception_spawn_egg",
-      () -> new ForgeSpawnEggItem(ModEntityType.RECEPTION, 0x000000, 0xffffff, new Item.Properties()));
-
+  // Receptionist Spawn Eggs
+  public static final RegistryObject<Item> RECEPTIONIST_SPAWN_EGG = ITEMS
+      .register("receptionist_spawn_egg", () -> new ForgeSpawnEggItem(ModEntityType.RECEPTIONIST,
+          0x000000, 0xffffff, new Item.Properties()));
+  public static final RegistryObject<Item> RECEPTIONIST_ALEX_SPAWN_EGG = ITEMS.register(
+      "receptionist_alex_spawn_egg", () -> new ForgeSpawnEggItem(ModEntityType.RECEPTIONIST_ALEX,
+          0xff0000, 0xffffff, new Item.Properties()));
+  public static final RegistryObject<Item> RECEPTIONIST_ARI_SPAWN_EGG = ITEMS.register(
+      "receptionist_ari_spawn_egg", () -> new ForgeSpawnEggItem(ModEntityType.RECEPTIONIST_ARI,
+          0x0f00f0, 0xffffff, new Item.Properties()));
+  public static final RegistryObject<Item> RECEPTIONIST_EFE_SPAWN_EGG = ITEMS.register(
+      "receptionist_efe_spawn_egg", () -> new ForgeSpawnEggItem(ModEntityType.RECEPTIONIST_EFE,
+          0x00ff00, 0xffffff, new Item.Properties()));
+  public static final RegistryObject<Item> RECEPTIONIST_KAI_SPAWN_EGG = ITEMS.register(
+      "receptionist_kai_spawn_egg", () -> new ForgeSpawnEggItem(ModEntityType.RECEPTIONIST_KAI,
+          0x0000ff, 0xffffff, new Item.Properties()));
+  public static final RegistryObject<Item> RECEPTIONIST_MAKENA_SPAWN_EGG =
+      ITEMS.register("receptionist_makena_spawn_egg",
+          () -> new ForgeSpawnEggItem(ModEntityType.RECEPTIONIST_MAKENA, 0x000000, 0xffffff,
+              new Item.Properties()));
+  public static final RegistryObject<Item> RECEPTIONIST_NOOR_SPAWN_EGG = ITEMS.register(
+      "receptionist_noor_spawn_egg", () -> new ForgeSpawnEggItem(ModEntityType.RECEPTIONIST_NOOR,
+          0xffff00, 0xffffff, new Item.Properties()));
+  public static final RegistryObject<Item> RECEPTIONIST_STEVE_SPAWN_EGG = ITEMS.register(
+      "receptionist_steve_spawn_egg", () -> new ForgeSpawnEggItem(ModEntityType.RECEPTIONIST_STEVE,
+          0xff00ff, 0xffffff, new Item.Properties()));
+  public static final RegistryObject<Item> RECEPTIONIST_SUNNY_SPAWN_EGG = ITEMS.register(
+      "receptionist_sunny_spawn_egg", () -> new ForgeSpawnEggItem(ModEntityType.RECEPTIONIST_SUNNY,
+          0x00ffff, 0xffffff, new Item.Properties()));
+  public static final RegistryObject<Item> RECEPTIONIST_ZURI_SPAWN_EGG = ITEMS.register(
+      "receptionist_zuri_spawn_egg", () -> new ForgeSpawnEggItem(ModEntityType.RECEPTIONIST_ZURI,
+          0xffffff, 0xffffff, new Item.Properties()));
 }

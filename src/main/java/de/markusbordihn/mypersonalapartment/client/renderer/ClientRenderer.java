@@ -27,7 +27,7 @@ import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.client.event.EntityRenderersEvent;
 
 import de.markusbordihn.mypersonalapartment.Constants;
-import de.markusbordihn.mypersonalapartment.client.renderer.entity.HumanoidSlimRenderer;
+import de.markusbordihn.mypersonalapartment.client.renderer.receptionist.ReceptionistRenderer;
 import de.markusbordihn.mypersonalapartment.entity.npc.ModEntityType;
 
 @OnlyIn(Dist.CLIENT)
@@ -40,8 +40,17 @@ public class ClientRenderer {
   public static void registerEntityRenderers(EntityRenderersEvent.RegisterRenderers event) {
     log.info("{} Entity Renders ...", Constants.LOG_REGISTER_PREFIX);
 
-    // Default NPC Entity
-    event.registerEntityRenderer(ModEntityType.RECEPTION.get(), HumanoidSlimRenderer::new);
+    // Receptionist NPC Entity
+    event.registerEntityRenderer(ModEntityType.RECEPTIONIST.get(), ReceptionistRenderer::new);
+    event.registerEntityRenderer(ModEntityType.RECEPTIONIST_ALEX.get(), ReceptionistRenderer::new);
+    event.registerEntityRenderer(ModEntityType.RECEPTIONIST_ARI.get(), ReceptionistRenderer::new);
+    event.registerEntityRenderer(ModEntityType.RECEPTIONIST_EFE.get(), ReceptionistRenderer::new);
+    event.registerEntityRenderer(ModEntityType.RECEPTIONIST_KAI.get(), ReceptionistRenderer::new);
+    event.registerEntityRenderer(ModEntityType.RECEPTIONIST_MAKENA.get(), ReceptionistRenderer::new);
+    event.registerEntityRenderer(ModEntityType.RECEPTIONIST_NOOR.get(), ReceptionistRenderer::new);
+    event.registerEntityRenderer(ModEntityType.RECEPTIONIST_STEVE.get(), ReceptionistRenderer::new);
+    event.registerEntityRenderer(ModEntityType.RECEPTIONIST_SUNNY.get(), ReceptionistRenderer::new);
+    event.registerEntityRenderer(ModEntityType.RECEPTIONIST_ZURI.get(), ReceptionistRenderer::new);
   }
 
 }

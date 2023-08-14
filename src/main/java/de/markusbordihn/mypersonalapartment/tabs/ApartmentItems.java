@@ -32,6 +32,15 @@ public class ApartmentItems implements DisplayItemsGenerator {
   public void accept(ItemDisplayParameters itemDisplayParameters, Output output) {
     // Creative Apartment Items
     output.accept(ModItems.KEY_HOLDER_BASIC.get());
-    output.accept(ModItems.RECEPTION_SPAWN_EGG.get());
+    output.accept(ModItems.RECEPTIONIST_SPAWN_EGG.get());
+    output.accept(ModItems.RECEPTIONIST_ALEX_SPAWN_EGG.get());
+    output.accept(ModItems.RECEPTIONIST_ARI_SPAWN_EGG.get());
+    output.accept(ModItems.RECEPTIONIST_EFE_SPAWN_EGG.get());
+    output.accept(ModItems.RECEPTIONIST_KAI_SPAWN_EGG.get());
+    output.accept(ModItems.RECEPTIONIST_MAKENA_SPAWN_EGG.get());
+    output.accept(ModItems.RECEPTIONIST_NOOR_SPAWN_EGG.get());
+    output.accept(ModItems.RECEPTIONIST_STEVE_SPAWN_EGG.get());
+    output.accept(ModItems.RECEPTIONIST_SUNNY_SPAWN_EGG.get());
+    output.accept(ModItems.RECEPTIONIST_ZURI_SPAWN_EGG.get());
   }
 }

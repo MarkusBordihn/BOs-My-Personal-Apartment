@@ -20,6 +20,7 @@
 package de.markusbordihn.mypersonalapartment.entity.npc;
 
 import net.minecraft.world.entity.EntityType;
+import net.minecraft.world.level.Level;
 
 import net.minecraftforge.event.entity.EntityAttributeCreationEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
@@ -31,6 +32,8 @@ import net.minecraftforge.registries.RegistryObject;
 
 import de.markusbordihn.mypersonalapartment.Constants;
 import de.markusbordihn.mypersonalapartment.entity.ApartmentNPCEntityData;
+import de.markusbordihn.mypersonalapartment.entity.npc.receptionist.ReceptionistEntity;
+import de.markusbordihn.mypersonalapartment.entity.npc.receptionist.ReceptionistVariant;
 
 @EventBusSubscriber(bus = Mod.EventBusSubscriber.Bus.MOD)
 public class ModEntityType {
@@ -42,16 +45,80 @@ public class ModEntityType {
   public static final DeferredRegister<EntityType<?>> ENTITY_TYPES =
       DeferredRegister.create(ForgeRegistries.ENTITY_TYPES, Constants.MOD_ID);
 
-  // Default NPC Entity
-  public static final RegistryObject<EntityType<Reception>> RECEPTION =
-      ENTITY_TYPES.register(Reception.ID,
-          () -> EntityType.Builder.<Reception>of(Reception::new, ApartmentNPCEntityData.CATEGORY)
-              .sized(1.0F, 2.0F).clientTrackingRange(8).build(Reception.ID));
+  // Receptionist NPC Entity
+  public static final RegistryObject<EntityType<ReceptionistEntity>> RECEPTIONIST =
+      ENTITY_TYPES.register(ReceptionistEntity.ID,
+          () -> EntityType.Builder
+              .<ReceptionistEntity>of(ReceptionistEntity::new, ApartmentNPCEntityData.CATEGORY)
+              .sized(1.0F, 2.0F).clientTrackingRange(8).build(ReceptionistEntity.ID));
+  public static final RegistryObject<EntityType<ReceptionistEntity>> RECEPTIONIST_ALEX =
+      ENTITY_TYPES.register(ReceptionistEntity.ID + "_alex", () -> EntityType.Builder
+          .<ReceptionistEntity>of((EntityType<ReceptionistEntity> entityType, Level level) -> {
+            return new ReceptionistEntity(entityType, ReceptionistVariant.ALEX, level);
+          }, ApartmentNPCEntityData.CATEGORY).sized(1.0F, 2.0F).clientTrackingRange(8)
+          .build(ReceptionistEntity.ID + "_alex"));
+  public static final RegistryObject<EntityType<ReceptionistEntity>> RECEPTIONIST_ARI =
+      ENTITY_TYPES.register(ReceptionistEntity.ID + "_ari", () -> EntityType.Builder
+          .<ReceptionistEntity>of((EntityType<ReceptionistEntity> entityType, Level level) -> {
+            return new ReceptionistEntity(entityType, ReceptionistVariant.ARI, level);
+          }, ApartmentNPCEntityData.CATEGORY).sized(1.0F, 2.0F).clientTrackingRange(8)
+          .build(ReceptionistEntity.ID + "_ari"));
+  public static final RegistryObject<EntityType<ReceptionistEntity>> RECEPTIONIST_EFE =
+      ENTITY_TYPES.register(ReceptionistEntity.ID + "_efe", () -> EntityType.Builder
+          .<ReceptionistEntity>of((EntityType<ReceptionistEntity> entityType, Level level) -> {
+            return new ReceptionistEntity(entityType, ReceptionistVariant.EFE, level);
+          }, ApartmentNPCEntityData.CATEGORY).sized(1.0F, 2.0F).clientTrackingRange(8)
+          .build(ReceptionistEntity.ID + "_efe"));
+  public static final RegistryObject<EntityType<ReceptionistEntity>> RECEPTIONIST_KAI =
+      ENTITY_TYPES.register(ReceptionistEntity.ID + "_kai", () -> EntityType.Builder
+          .<ReceptionistEntity>of((EntityType<ReceptionistEntity> entityType, Level level) -> {
+            return new ReceptionistEntity(entityType, ReceptionistVariant.KAI, level);
+          }, ApartmentNPCEntityData.CATEGORY).sized(1.0F, 2.0F).clientTrackingRange(8)
+          .build(ReceptionistEntity.ID + "_kai"));
+  public static final RegistryObject<EntityType<ReceptionistEntity>> RECEPTIONIST_MAKENA =
+      ENTITY_TYPES.register(ReceptionistEntity.ID + "_makena", () -> EntityType.Builder
+          .<ReceptionistEntity>of((EntityType<ReceptionistEntity> entityType, Level level) -> {
+            return new ReceptionistEntity(entityType, ReceptionistVariant.MAKENA, level);
+          }, ApartmentNPCEntityData.CATEGORY).sized(1.0F, 2.0F).clientTrackingRange(8)
+          .build(ReceptionistEntity.ID + "_makena"));
+  public static final RegistryObject<EntityType<ReceptionistEntity>> RECEPTIONIST_NOOR =
+      ENTITY_TYPES.register(ReceptionistEntity.ID + "_noor", () -> EntityType.Builder
+          .<ReceptionistEntity>of((EntityType<ReceptionistEntity> entityType, Level level) -> {
+            return new ReceptionistEntity(entityType, ReceptionistVariant.NOOR, level);
+          }, ApartmentNPCEntityData.CATEGORY).sized(1.0F, 2.0F).clientTrackingRange(8)
+          .build(ReceptionistEntity.ID + "_noor"));
+  public static final RegistryObject<EntityType<ReceptionistEntity>> RECEPTIONIST_STEVE =
+      ENTITY_TYPES.register(ReceptionistEntity.ID + "_steve", () -> EntityType.Builder
+          .<ReceptionistEntity>of((EntityType<ReceptionistEntity> entityType, Level level) -> {
+            return new ReceptionistEntity(entityType, ReceptionistVariant.STEVE, level);
+          }, ApartmentNPCEntityData.CATEGORY).sized(1.0F, 2.0F).clientTrackingRange(8)
+          .build(ReceptionistEntity.ID + "_steve"));
+  public static final RegistryObject<EntityType<ReceptionistEntity>> RECEPTIONIST_SUNNY =
+      ENTITY_TYPES.register(ReceptionistEntity.ID + "_sunny", () -> EntityType.Builder
+          .<ReceptionistEntity>of((EntityType<ReceptionistEntity> entityType, Level level) -> {
+            return new ReceptionistEntity(entityType, ReceptionistVariant.SUNNY, level);
+          }, ApartmentNPCEntityData.CATEGORY).sized(1.0F, 2.0F).clientTrackingRange(8)
+          .build(ReceptionistEntity.ID + "_sunny"));
+  public static final RegistryObject<EntityType<ReceptionistEntity>> RECEPTIONIST_ZURI =
+      ENTITY_TYPES.register(ReceptionistEntity.ID + "_zuri", () -> EntityType.Builder
+          .<ReceptionistEntity>of((EntityType<ReceptionistEntity> entityType, Level level) -> {
+            return new ReceptionistEntity(entityType, ReceptionistVariant.ZURI, level);
+          }, ApartmentNPCEntityData.CATEGORY).sized(1.0F, 2.0F).clientTrackingRange(8)
+          .build(ReceptionistEntity.ID + "_zuri"));
 
   @SubscribeEvent
   public static final void entityAttributeCreation(EntityAttributeCreationEvent event) {
-    // Default NPC Entities
-    event.put(RECEPTION.get(), Reception.createAttributes().build());
+    // Receptionist NPC Entity
+    event.put(RECEPTIONIST.get(), ReceptionistEntity.createAttributes().build());
+    event.put(RECEPTIONIST_ALEX.get(), ReceptionistEntity.createAttributes().build());
+    event.put(RECEPTIONIST_ARI.get(), ReceptionistEntity.createAttributes().build());
+    event.put(RECEPTIONIST_EFE.get(), ReceptionistEntity.createAttributes().build());
+    event.put(RECEPTIONIST_KAI.get(), ReceptionistEntity.createAttributes().build());
+    event.put(RECEPTIONIST_MAKENA.get(), ReceptionistEntity.createAttributes().build());
+    event.put(RECEPTIONIST_NOOR.get(), ReceptionistEntity.createAttributes().build());
+    event.put(RECEPTIONIST_STEVE.get(), ReceptionistEntity.createAttributes().build());
+    event.put(RECEPTIONIST_SUNNY.get(), ReceptionistEntity.createAttributes().build());
+    event.put(RECEPTIONIST_ZURI.get(), ReceptionistEntity.createAttributes().build());
   }
 
 }

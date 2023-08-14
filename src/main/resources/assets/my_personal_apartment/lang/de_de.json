@@ -29,9 +29,20 @@
   "text.my_personal_apartment.command.back.error.back.error.no_last_dimension": "Du hast keine letzte Dimension, in die du dich zurückteleportieren kannst.",
   "text.my_personal_apartment.command.back.success": "Du wirst zurück in deine letzte Dimension teleportiert.",
 
-  "entity.my_personal_apartment.reception": "Rezeption",
+  "entity.my_personal_apartment.receptionist": "Rezeptionist",
 
   "message.my_personal_apartment.no_apartment": "Es sieht so aus, als hättest du noch keine Wohnung.\nSpreche zuerst mit der Rezeption, um eine neue Wohnung zu finden!",
+
+  "item.my_personal_apartment.receptionist_spawn_egg": "Rezeptionist Spawn Ei",
+  "item.my_personal_apartment.receptionist_alex_spawn_egg": "Rezeptionist Spawn Ei (Alex)",
+  "item.my_personal_apartment.receptionist_ari_spawn_egg": "Rezeptionist Spawn Ei (Ari)",
+  "item.my_personal_apartment.receptionist_efe_spawn_egg": "Rezeptionist Spawn Ei (Efe)",
+  "item.my_personal_apartment.receptionist_kai_spawn_egg": "Rezeptionist Spawn Ei (Kai)",
+  "item.my_personal_apartment.receptionist_makena_spawn_egg": "Rezeptionist Spawn Ei (Makena)",
+  "item.my_personal_apartment.receptionist_noor_spawn_egg": "Rezeptionist Spawn Ei (Noor)",
+  "item.my_personal_apartment.receptionist_steve_spawn_egg": "Rezeptionist Spawn Ei (Steve)",
+  "item.my_personal_apartment.receptionist_sunny_spawn_egg": "Rezeptionist Spawn Ei (Sunny)",
+  "item.my_personal_apartment.receptionist_zuri_spawn_egg": "Rezeptionist Spawn Ei (Zuri)",
 
   "itemGroup.my_personal_apartment.apartment": "Meine persönliche Wohnung"
 }

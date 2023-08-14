@@ -40,6 +40,7 @@ public final class Constants {
   // Prefixes
   public static final String MINECRAFT_PREFIX = "minecraft";
   public static final String MESSAGE_PREFIX = "message.my_personal_apartment.";
+  public static final String ENTITY_PREFIX = "entity.my_personal_apartment.";
   public static final String TEXT_PREFIX = "text.my_personal_apartment.";
   public static final String TEXT_COMMAND_PREFIX = TEXT_PREFIX + "command.";
   public static final String TEXT_RECEPTION_PREFIX = TEXT_PREFIX + "reception.";

@@ -17,7 +17,7 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
 
-package de.markusbordihn.mypersonalapartment.entity.npc;
+package de.markusbordihn.mypersonalapartment.entity.npc.receptionist;
 
 import java.util.Set;
 
@@ -33,6 +33,7 @@ import net.minecraft.world.entity.Mob;
 import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
 import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.item.Items;
 import net.minecraft.world.level.Level;
 
 import net.minecraftforge.network.NetworkHooks;
@@ -45,17 +46,25 @@ import de.markusbordihn.mypersonalapartment.menu.apartment.ApartmentBrokerFeeMen
 import de.markusbordihn.mypersonalapartment.menu.apartment.ClaimApartmentMenu;
 import de.markusbordihn.mypersonalapartment.menu.apartment.TeleportApartmentMenu;
 
-public class Reception extends ApartmentNPCEntity {
+public class ReceptionistEntity extends ApartmentNPCEntity {
 
   protected static final Logger log = LogManager.getLogger(Constants.LOG_NAME);
 
   // General Information
-  public static final String ID = "reception";
-  public static final String NAME = "Reception";
+  public static final String ID = "receptionist";
+  public static final String NAME = "Receptionist";
+  private ReceptionistVariant variant = ReceptionistVariant.ALEX;
 
-  public Reception(EntityType<? extends Mob> entityType, Level level) {
+  public ReceptionistEntity(EntityType<? extends Mob> entityType, Level level) {
     super(entityType, level);
-    this.setCustomName(Component.translatable(Constants.TEXT_PREFIX + ID));
+    this.setCustomName(Component.translatable(Constants.ENTITY_PREFIX + ID));
+    this.setItemInHand(InteractionHand.MAIN_HAND, Items.PAPER.getDefaultInstance());
+  }
+
+  public ReceptionistEntity(EntityType<? extends Mob> entityType, ReceptionistVariant variant,
+      Level level) {
+    this(entityType, level);
+    this.setVariant(variant);
   }
 
   public static AttributeSupplier.Builder createAttributes() {
@@ -76,6 +85,14 @@ public class Reception extends ApartmentNPCEntity {
   public static void openTeleportApartmentDialog(ServerPlayer serverPlayer) {
     NetworkHooks.openScreen(serverPlayer, TeleportApartmentMenu.getMenuProvider(serverPlayer),
         buffer -> ApartmentsData.get().writeApartmentsToBuffer(serverPlayer, buffer));
+  }
+
+  public ReceptionistVariant getVariant() {
+    return this.variant;
+  }
+
+  public void setVariant(ReceptionistVariant variant) {
+    this.variant = variant;
   }
 
   @Override
