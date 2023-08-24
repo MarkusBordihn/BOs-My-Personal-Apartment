@@ -129,12 +129,11 @@ public final class CommonConfig {
       builder.push("Tier 1 - Apartments");
       apartmentsTier1Price = builder.comment("Price for tier 1 apartments.")
           .defineInRange("apartmentsTier1Price", 100, 0, 10000);
-      apartmentsTier1 = builder.comment("List of tier 1 apartments structure.")
-          .define("apartmentsTier1", List.of(
-            "my_personal_apartment:apartment/16x16/tier1/16x16_tier1_oak_apartment",
-            "my_personal_apartment:apartment/16x16/tier1/16x16_tier1_spruce_apartment",
-            "my_personal_apartment:apartment/16x16/tier1/16x16_tier1_acacia_apartment"
-            ));
+      apartmentsTier1 =
+          builder.comment("List of tier 1 apartments structure.").define("apartmentsTier1",
+              List.of("my_personal_apartment:apartment/16x16/tier1/16x16_tier1_oak_apartment",
+                  "my_personal_apartment:apartment/16x16/tier1/16x16_tier1_spruce_apartment",
+                  "my_personal_apartment:apartment/16x16/tier1/16x16_tier1_acacia_apartment"));
       builder.pop();
 
       builder.push("Commands");
@@ -159,20 +158,20 @@ public final class CommonConfig {
           .define("receptionDesertEnabled", true);
       receptionDesertSmallModel = builder.comment("List of small models for the desert reception.")
           .define("receptionDesertSmallModel",
-              List.of("my_personal_apartment:reception/dessert/dessert_small_reception_1"));
+              List.of("my_personal_apartment:reception/desert/desert_small_reception_1"));
       receptionDesertSmallModelSpawnWeight =
           builder.comment("Spawn weight for small models for the desert reception. (0 = disabled)")
               .defineInRange("receptionDesertSmallModelSpawnWeight", 2, 1, 100);
       receptionDesertMediumModel =
           builder.comment("List of medium models for the desert reception.").define(
               "receptionDesertMediumModel",
-              List.of("my_personal_apartment:reception/dessert/dessert_medium_reception_1"));
+              List.of("my_personal_apartment:reception/desert/desert_medium_reception_1"));
       receptionDesertMediumModelSpawnWeight =
           builder.comment("Spawn weight for medium models for the desert reception. (0 = disabled)")
               .defineInRange("receptionDesertMediumModelSpawnWeight", 1, 1, 100);
       receptionDesertLargeModel = builder.comment("List of large models for the desert reception.")
           .define("receptionDesertLargeModel",
-              List.of("my_personal_apartment:reception/dessert/dessert_large_reception_1"));
+              List.of("my_personal_apartment:reception/desert/desert_large_reception_1"));
       receptionDesertLargeModelSpawnWeight =
           builder.comment("Spawn weight for large models for the desert reception. (0 = disabled)")
               .defineInRange("receptionDesertLargeModelSpawnWeight", 1, 1, 100);
@@ -246,6 +245,35 @@ public final class CommonConfig {
               .defineInRange("receptionSavannaInfoModelSpawnWeight", 1, 1, 100);
       builder.pop();
 
+      builder.push("Reception (Snowy)");
+      receptionSnowyEnabled = builder.comment("Enables the snowy reception structures.")
+          .define("receptionSnowyEnabled", true);
+      receptionSnowySmallModel = builder.comment("List of small models for the snowy reception.")
+          .define("receptionSnowySmallModel",
+              List.of("my_personal_apartment:reception/snowy/snowy_small_reception_1"));
+      receptionSnowySmallModelSpawnWeight =
+          builder.comment("Spawn weight for small models for the snowy reception. (0 = disabled)")
+              .defineInRange("receptionSnowySmallModelSpawnWeight", 2, 1, 100);
+      receptionSnowyMediumModel = builder.comment("List of medium models for the snowy reception.")
+          .define("receptionSnowyMediumModel",
+              List.of("my_personal_apartment:reception/snowy/snowy_medium_reception_1"));
+      receptionSnowyMediumModelSpawnWeight =
+          builder.comment("Spawn weight for medium models for the snowy reception. (0 = disabled)")
+              .defineInRange("receptionSnowyMediumModelSpawnWeight", 1, 1, 100);
+      receptionSnowyLargeModel = builder.comment("List of large models for the snowy reception.")
+          .define("receptionSnowyLargeModel",
+              List.of("my_personal_apartment:reception/snowy/snowy_large_reception_1"));
+      receptionSnowyLargeModelSpawnWeight =
+          builder.comment("Spawn weight for large models for the snowy reception. (0 = disabled)")
+              .defineInRange("receptionSnowyLargeModelSpawnWeight", 1, 1, 100);
+      receptionSnowyInfoModel = builder.comment("List of info models for the snowy reception.")
+          .define("receptionSnowyInfoModel",
+              List.of("my_personal_apartment:reception/snowy/snowy_info_stand_1"));
+      receptionSnowyInfoModelSpawnWeight =
+          builder.comment("Spawn weight for info models for the snowy reception. (0 = disabled)")
+              .defineInRange("receptionSnowyInfoModelSpawnWeight", 1, 1, 100);
+      builder.pop();
+
       builder.push("Reception (Taiga)");
       receptionTaigaEnabled = builder.comment("Enables the taiga reception structures.")
           .define("receptionTaigaEnabled", true);
@@ -275,34 +303,6 @@ public final class CommonConfig {
               .defineInRange("receptionTaigaInfoModelSpawnWeight", 1, 1, 100);
       builder.pop();
 
-      builder.push("Reception (Snowy)");
-      receptionSnowyEnabled = builder.comment("Enables the snowy reception structures.")
-          .define("receptionSnowyEnabled", true);
-      receptionSnowySmallModel = builder.comment("List of small models for the snowy reception.")
-          .define("receptionSnowySmallModel",
-              List.of("my_personal_apartment:reception/snowy/snowy_small_reception_1"));
-      receptionSnowySmallModelSpawnWeight =
-          builder.comment("Spawn weight for small models for the snowy reception. (0 = disabled)")
-              .defineInRange("receptionSnowySmallModelSpawnWeight", 2, 1, 100);
-      receptionSnowyMediumModel = builder.comment("List of medium models for the snowy reception.")
-          .define("receptionSnowyMediumModel",
-              List.of("my_personal_apartment:reception/snowy/snowy_medium_reception_1"));
-      receptionSnowyMediumModelSpawnWeight =
-          builder.comment("Spawn weight for medium models for the snowy reception. (0 = disabled)")
-              .defineInRange("receptionSnowyMediumModelSpawnWeight", 1, 1, 100);
-      receptionSnowyLargeModel = builder.comment("List of large models for the snowy reception.")
-          .define("receptionSnowyLargeModel",
-              List.of("my_personal_apartment:reception/snowy/snowy_large_reception_1"));
-      receptionSnowyLargeModelSpawnWeight =
-          builder.comment("Spawn weight for large models for the snowy reception. (0 = disabled)")
-              .defineInRange("receptionSnowyLargeModelSpawnWeight", 1, 1, 100);
-      receptionSnowyInfoModel = builder.comment("List of info models for the snowy reception.")
-          .define("receptionSnowyInfoModel",
-              List.of("my_personal_apartment:reception/snowy/snowy_info_stand_1"));
-      receptionSnowyInfoModelSpawnWeight =
-          builder.comment("Spawn weight for info models for the snowy reception. (0 = disabled)")
-              .defineInRange("receptionSnowyInfoModelSpawnWeight", 1, 1, 100);
-      builder.pop();
     }
   }
 

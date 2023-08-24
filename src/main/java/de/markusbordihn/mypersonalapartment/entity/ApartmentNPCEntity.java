@@ -76,7 +76,8 @@ public class ApartmentNPCEntity extends ApartmentNPCEntityData {
     // Allow animation, if entity is falling or placed in air.
     if (travelTicker++ >= TRAVEL_TICK) {
       BlockState blockState = this.level().getBlockState(this.getOnPos());
-      if (blockState.is(Blocks.AIR) || blockState.is(Blocks.GRASS)) {
+      if (blockState.is(Blocks.AIR) || blockState.is(Blocks.GRASS)
+          || blockState.is(Blocks.WHITE_CARPET) || blockState.is(Blocks.RED_CARPET)) {
         super.travel(vec3);
       }
       travelTicker = 0;

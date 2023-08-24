@@ -66,26 +66,31 @@ public class VillageTemplatePool {
 
     // Add dessert reception buildings
     if (Boolean.TRUE.equals(COMMON.receptionDesertEnabled.get())) {
+      log.info("Adding dessert reception buildings ...");
       addReceptionDessertStructures(structureTemplatePool, structureProcessorList);
     }
 
     // Add plains reception buildings
     if (Boolean.TRUE.equals(COMMON.receptionPlainsEnabled.get())) {
+      log.info("Adding plains reception buildings ...");
       addReceptionPlainsStructures(structureTemplatePool, structureProcessorList);
     }
 
     // Add savanna reception buildings
     if (Boolean.TRUE.equals(COMMON.receptionSavannaEnabled.get())) {
+      log.info("Adding savanna reception buildings ...");
       addReceptionSavannaStructures(structureTemplatePool, structureProcessorList);
     }
 
     // Add snowy reception buildings
     if (Boolean.TRUE.equals(COMMON.receptionSnowyEnabled.get())) {
+      log.info("Adding snowy reception buildings ...");
       addReceptionSnowyStructures(structureTemplatePool, structureProcessorList);
     }
 
     // Add taiga reception buildings
     if (Boolean.TRUE.equals(COMMON.receptionTaigaEnabled.get())) {
+      log.info("Adding taiga reception buildings ...");
       addReceptionTaigaStructures(structureTemplatePool, structureProcessorList);
     }
   }
@@ -183,15 +188,15 @@ public class VillageTemplatePool {
   private static void addReceptionStructures(Registry<StructureTemplatePool> structureTemplatePool,
       Registry<StructureProcessorList> structureProcessorList, ResourceLocation templatePool,
       List<String> models, int weight) {
-
-
     // Add buildings to pool
     if (weight > 0 && !models.isEmpty()) {
       log.info("Add buildings {} to {} with weight {} ...", models, templatePool, weight);
       for (String model : models) {
         addStructureToTemplatePool(structureTemplatePool, structureProcessorList, templatePool,
-            model, COMMON.receptionDesertSmallModelSpawnWeight.get());
+            model, weight);
       }
+    } else {
+      log.warn("Skip buildings {} for {} with weight {} ...", models, templatePool, weight);
     }
   }
 
@@ -204,7 +209,7 @@ public class VillageTemplatePool {
     // Get the pool and check if it exists.
     StructureTemplatePool pool = structureTemplatePool.get(templatePool);
     if (pool == null) {
-      log.warn("Pool {} not found!", templatePool);
+      log.warn("Template Pool {} not found!", templatePool);
       return;
     }
 

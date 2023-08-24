@@ -5,6 +5,10 @@
 This change log includes the summarized changes.
 For the full changelog, please go to the [Git Hub History][history] instead.
 
+### 2023.08.24
+
+- Added and fixed reception structures for desert, plains, savanna, snowy and taiga villages.
+
 ### 2023.08.13
 
 - Added receptionist variants for the `My Personal Apartment` mod.
