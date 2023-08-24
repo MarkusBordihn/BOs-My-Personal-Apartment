@@ -178,7 +178,7 @@ public final class CommonConfig {
               .defineInRange("receptionDesertLargeModelSpawnWeight", 1, 1, 100);
       receptionDesertInfoModel = builder.comment("List of info models for the desert reception.")
           .define("receptionDesertInfoModel",
-              List.of("my_personal_apartment:reception/common/info_stand_1"));
+              List.of("my_personal_apartment:reception/desert/desert_info_stand_1"));
       receptionDesertInfoModelSpawnWeight =
           builder.comment("Spawn weight for info models for the desert reception. (0 = disabled)")
               .defineInRange("receptionDesertInfoModelSpawnWeight", 1, 1, 100);
@@ -208,7 +208,7 @@ public final class CommonConfig {
               .defineInRange("receptionPlainsLargeModelSpawnWeight", 1, 1, 100);
       receptionPlainsInfoModel = builder.comment("List of info models for the plains reception.")
           .define("receptionPlainsInfoModel",
-              List.of("my_personal_apartment:reception/common/info_stand_1"));
+              List.of("my_personal_apartment:reception/plains/plains_info_stand_1"));
       receptionPlainsInfoModelSpawnWeight =
           builder.comment("Spawn weight for info models for the plains reception. (0 = disabled)")
               .defineInRange("receptionPlainsInfoModelSpawnWeight", 1, 1, 100);
@@ -240,7 +240,7 @@ public final class CommonConfig {
               .defineInRange("receptionSavannaLargeModelSpawnWeight", 1, 1, 100);
       receptionSavannaInfoModel = builder.comment("List of info models for the savanna reception.")
           .define("receptionSavannaInfoModel",
-              List.of("my_personal_apartment:reception/common/info_stand_1"));
+              List.of("my_personal_apartment:reception/savanna/savanna_info_stand_1"));
       receptionSavannaInfoModelSpawnWeight =
           builder.comment("Spawn weight for info models for the savanna reception. (0 = disabled)")
               .defineInRange("receptionSavannaInfoModelSpawnWeight", 1, 1, 100);
@@ -269,7 +269,7 @@ public final class CommonConfig {
               .defineInRange("receptionTaigaLargeModelSpawnWeight", 1, 1, 100);
       receptionTaigaInfoModel = builder.comment("List of info models for the taiga reception.")
           .define("receptionTaigaInfoModel",
-              List.of("my_personal_apartment:reception/common/info_stand_1"));
+              List.of("my_personal_apartment:reception/taiga/taiga_info_stand_1"));
       receptionTaigaInfoModelSpawnWeight =
           builder.comment("Spawn weight for info models for the taiga reception. (0 = disabled)")
               .defineInRange("receptionTaigaInfoModelSpawnWeight", 1, 1, 100);
@@ -298,7 +298,7 @@ public final class CommonConfig {
               .defineInRange("receptionSnowyLargeModelSpawnWeight", 1, 1, 100);
       receptionSnowyInfoModel = builder.comment("List of info models for the snowy reception.")
           .define("receptionSnowyInfoModel",
-              List.of("my_personal_apartment:reception/common/info_stand_1"));
+              List.of("my_personal_apartment:reception/snowy/snowy_info_stand_1"));
       receptionSnowyInfoModelSpawnWeight =
           builder.comment("Spawn weight for info models for the snowy reception. (0 = disabled)")
               .defineInRange("receptionSnowyInfoModelSpawnWeight", 1, 1, 100);
