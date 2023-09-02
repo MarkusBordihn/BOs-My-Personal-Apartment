@@ -5,6 +5,10 @@
 This change log includes the summarized changes.
 For the full changelog, please go to the [Git Hub History][history] instead.
 
+### 2023.09.03
+
+- Fixed wrong block definition "ork" which caused a crash.
+
 ### 2023.08.24
 
 - Added and fixed reception structures for desert, plains, savanna, snowy and taiga villages.
